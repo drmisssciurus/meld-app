@@ -1,0 +1,149 @@
+.headerWrapper {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.logo {
+  width: 70px;
+  height: 70px;
+}
+
+.headerContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+.rightSide {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn {
+  text-transform: uppercase;
+  border: none;
+  background-color: var(--color-black);
+  color: var(--color-white);
+  font-weight: 700;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background-color: var(--color-dark-gray);
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  box-shadow: none;
+  transform: translateY(2px);
+}
+
+/* Burger menu */
+.burger {
+  width: 30px;
+  height: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+  order: 2;
+}
+
+.burger span {
+  height: 3px;
+  background-color: var(--color-black);
+  width: 100%;
+  border-radius: 2px;
+  transition: 0.3s ease;
+  transform-origin: center;
+}
+
+.burger.open span:nth-child(1) {
+  transform: rotate(40deg) translateY(11px);
+}
+
+.burger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.burger.open span:nth-child(3) {
+  transform: rotate(-40deg) translateY(-11px);
+}
+
+/* Mobile nav */
+.mobileNav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+/* Adapt */
+@media (max-width: 579px) {
+  .headerContainer {
+    flex-direction: row;
+    align-items: flex-start;
+    align-items: center;
+  }
+
+  .rightSide {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .btn {
+    margin: 0 auto;
+  }
+
+  .mobileNav {
+    position: absolute;
+    top: 93px;
+    right: 11px;
+    background-color: var(--color-white);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: var(--color-white);
+    width: max-content;
+    padding: 10px 20px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s ease, opacity 0.4s ease;
+    z-index: 5;
+  }
+
+  .mobileNavOpen {
+    max-height: 300px;
+    opacity: 1;
+
+    border-radius: 12px;
+    padding: 10px 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
