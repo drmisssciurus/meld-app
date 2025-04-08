@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Navigation from '../Navigation/Navigation';
 import styles from './Header.module.css';
-import logo from '../../assets/Frame 1.png';
+import logo from '/public/assets/meld-logo.png';
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -18,7 +18,7 @@ function Header() {
   }, []);
 
   return (
-    <header className="container">
+    <header>
       <div className={styles.headerContainer}>
         <div className={styles.headerWrapper}>
           <img className={styles.logo} src={logo} alt="Logo" />

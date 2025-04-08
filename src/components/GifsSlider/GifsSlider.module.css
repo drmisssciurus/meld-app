@@ -1,0 +1,27 @@
+.swiperContainer {
+  width: 100%;
+  padding: 0 16px; /* отступы по краям */
+  box-sizing: border-box;
+  max-width: 1220px;
+}
+
+.slideWrapper {
+  /* width: clamp(140px, 25vw, 220px); */
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.gifImage {
+  width: 100%;
+  height: clamp(120px, 15vw, 180px);
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* Дополнительно: ограничим высоту изображений на маленьких экранах */
+@media (max-width: 480px) {
+  .swiperContainer {
+    padding: 0 8px;
+  }
+}
