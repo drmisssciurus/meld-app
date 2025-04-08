@@ -8,3 +8,15 @@
   width: 60%;
   margin: 0 auto;
 }
+
+.btnTry {
+  cursor: pointer;
+  color: var(--color-violet);
+  font-weight: 700;
+  font-size: 18px;
+  font-family: 'Quicksand', sans-serif;
+  background-color: transparent;
+  border: 2px solid var(--color-violet);
+  padding: 10px;
+  border-radius: 20px;
+}

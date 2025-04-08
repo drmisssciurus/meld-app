@@ -16,7 +16,7 @@ function Banner() {
         You can use MELD to detect facial landmarks on videos in your browser
         with no additional installments needed!
       </p>
-      <button>Try now!</button>
+      <button className={styles.btnTry}>Try now!</button>
     </div>
   );
 }
