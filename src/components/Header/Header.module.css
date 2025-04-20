@@ -92,7 +92,7 @@
 }
 
 /* Adapt */
-@media (max-width: 579px) {
+@media (max-width: 660px) {
   .headerContainer {
     flex-direction: row;
     align-items: flex-start;

@@ -5,12 +5,12 @@ import logo from '/public/assets/meld-logo.png';
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 580);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 660);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 580);
-      if (window.innerWidth >= 580) setMenuOpen(false);
+      setIsMobile(window.innerWidth < 660);
+      if (window.innerWidth >= 660) setMenuOpen(false);
     };
 
     window.addEventListener('resize', handleResize);
