@@ -43,7 +43,7 @@ function GifsSlider() {
           <SwiperSlide key={i}>
             <div className={styles.slideWrapper}>
               <img
-                src={`/assets/gifs/${n}.gif`}
+                src={`./assets/gifs/${n}.gif`}
                 alt={`gif-${n}`}
                 className={styles.gifImage}
               />

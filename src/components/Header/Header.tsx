@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Navigation from '../Navigation/Navigation';
 import styles from './Header.module.css';
-import logo from '/public/assets/meld-logo.png';
+import logo from '/assets/meld-logo.png';
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
