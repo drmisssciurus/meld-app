@@ -4,6 +4,7 @@ import styles from './Publications.module.css';
 function Publications() {
   return (
     <div className="container">
+      <h2 className={styles.title}>Publications</h2>
       <div className={styles.wrapper}>
         <PublicationsItem
           name={'Model’s architecture'}

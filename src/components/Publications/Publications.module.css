@@ -1,5 +1,9 @@
 .wrapper {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem; /* можно изменить отступ между элементами */
+}
+
+.title {
+  text-align: center;
 }
