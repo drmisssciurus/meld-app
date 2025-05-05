@@ -4,6 +4,8 @@
   align-items: center;
   justify-content: space-around;
   gap: 20px;
+
+  margin-bottom: 300px;
 }
 
 .formDescription {
@@ -35,6 +37,40 @@
   border-bottom: 1px solid #b5b3b3;
   font-family: 'Poppins', sans-serif;
   color: var(--color-black);
+  background-color: transparent;
+  padding: 8px 4px;
+  resize: none;
+  line-height: 1.5;
+}
+
+textarea.input {
+  height: 20px;
+  overflow: hidden;
+  resize: none;
+}
+
+.submitBtn {
+  cursor: pointer;
+  color: var(--color-violet);
+  font-weight: 700;
+  font-size: 18px;
+  font-family: 'Quicksand', sans-serif;
+  background-color: transparent;
+  border: 2px solid var(--color-violet);
+  padding: 10px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.submitBtn:hover {
+  background-color: var(--color-violet);
+  color: var(--color-white);
+}
+
+.submitBtn:active {
+  background-color: var(--color-dark-gray);
+  border-color: var(--color-dark-gray);
+  color: var(--color-white);
 }
 
 @media (max-width: 620px) {

@@ -18,7 +18,7 @@ function Navigation({ onNavigate }: NavigationProps) {
         People
       </div>
       <div className={styles.navItems} onClick={() => onNavigate?.('contact')}>
-        Contact
+        Contact Us
       </div>
     </nav>
   );
