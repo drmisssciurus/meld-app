@@ -1,8 +1,13 @@
+import { Ref } from 'react';
 import styles from './ContactUs.module.css';
 
-function ContactUs() {
+type ContactUsProps = {
+  sectionRef?: Ref<HTMLDivElement>;
+};
+
+function ContactUs({ sectionRef }: ContactUsProps) {
   return (
-    <div className="container">
+    <div ref={sectionRef} className="container">
       <div className={styles.contactUs}>
         <div className={styles.formDescription}>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero

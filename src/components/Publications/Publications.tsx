@@ -1,9 +1,14 @@
+import { Ref } from 'react';
 import PublicationsItem from '../PublicationsItem/PublicationsItem';
 import styles from './Publications.module.css';
 
-function Publications() {
+type PublicationsProps = {
+  sectionRef?: Ref<HTMLDivElement>;
+};
+
+function Publications({ sectionRef }: PublicationsProps) {
   return (
-    <div className="container">
+    <div ref={sectionRef} className="container">
       <h2 className={styles.title}>Publications</h2>
       <div className={styles.wrapper}>
         <PublicationsItem

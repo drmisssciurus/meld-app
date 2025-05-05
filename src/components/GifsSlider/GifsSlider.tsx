@@ -6,7 +6,18 @@ import 'swiper/css';
 // @ts-ignore
 import 'swiper/css/autoplay';
 
-const gifs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+import gif1 from '../../assets/gifs/1.gif';
+import gif2 from '../../assets/gifs/2.gif';
+import gif3 from '../../assets/gifs/3.gif';
+import gif4 from '../../assets/gifs/4.gif';
+import gif5 from '../../assets/gifs/5.gif';
+import gif6 from '../../assets/gifs/6.gif';
+import gif7 from '../../assets/gifs/7.gif';
+import gif8 from '../../assets/gifs/8.gif';
+import gif9 from '../../assets/gifs/9.gif';
+import gif10 from '../../assets/gifs/10.gif';
+
+const gifs = [gif1, gif2, gif3, gif4, gif5, gif6, gif7, gif8, gif9, gif10];
 
 function GifsSlider() {
   return (
@@ -39,14 +50,10 @@ function GifsSlider() {
           padding: '10px 0',
         }}
       >
-        {[...gifs, ...gifs].map((n, i) => (
+        {[...gifs, ...gifs].map((gifSrc, i) => (
           <SwiperSlide key={i}>
             <div className={styles.slideWrapper}>
-              <img
-                src={`./assets/gifs/${n}.gif`}
-                alt={`gif-${n}`}
-                className={styles.gifImage}
-              />
+              <img src={gifSrc} alt={`gif-${i}`} className={styles.gifImage} />
             </div>
           </SwiperSlide>
         ))}

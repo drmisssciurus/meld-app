@@ -1,22 +1,23 @@
 import styles from './Navigation.module.css';
 
 type NavigationProps = {
-  onLinkClick?: () => void;
+  onNavigate?: (section: 'publications' | 'people' | 'contact') => void;
 };
 
-function Navigation({ onLinkClick }: NavigationProps) {
+function Navigation({ onNavigate }: NavigationProps) {
   return (
     <nav className={styles.navContainer}>
-      <div className={styles.navItems} onClick={onLinkClick}>
-        Home
-      </div>
-      <div className={styles.navItems} onClick={onLinkClick}>
+      <div className={styles.navItems}>Home</div>
+      <div
+        className={styles.navItems}
+        onClick={() => onNavigate?.('publications')}
+      >
         Publications
       </div>
-      <div className={styles.navItems} onClick={onLinkClick}>
+      <div className={styles.navItems} onClick={() => onNavigate?.('people')}>
         People
       </div>
-      <div className={styles.navItems} onClick={onLinkClick}>
+      <div className={styles.navItems} onClick={() => onNavigate?.('contact')}>
         Contact
       </div>
     </nav>

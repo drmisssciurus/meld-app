@@ -1,9 +1,17 @@
 import { useEffect, useState } from 'react';
 import Navigation from '../Navigation/Navigation';
 import styles from './Header.module.css';
-import logo from '/assets/meld-logo.png';
+import logo from '../../assets/meld-logo.png';
 
-function Header() {
+type HeaderProps = {
+  sections: {
+    publications: React.RefObject<HTMLDivElement | null>;
+    people: React.RefObject<HTMLDivElement | null>;
+    contact: React.RefObject<HTMLDivElement | null>;
+  };
+};
+
+function Header({ sections }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 660);
 
@@ -17,12 +25,27 @@ function Header() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const scrollToSection = (section: keyof typeof sections) => {
+    setMenuOpen(false);
+    const scrollAction = () => {
+      sections[section]?.current?.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    if (isMobile) {
+      setTimeout(() => {
+        scrollAction();
+      }, 200);
+    } else {
+      scrollAction();
+    }
+  };
+
   return (
     <header>
       <div className={styles.headerContainer}>
         <div className={styles.headerWrapper}>
           <img className={styles.logo} src={logo} alt="Logo" />
-          {!isMobile && <Navigation />}
+          {!isMobile && <Navigation onNavigate={scrollToSection} />}
         </div>
 
         <div className={styles.rightSide}>
@@ -46,7 +69,7 @@ function Header() {
             menuOpen ? styles.mobileNavOpen : ''
           }`}
         >
-          <Navigation onLinkClick={() => setMenuOpen(false)} />
+          <Navigation onNavigate={scrollToSection} />
         </div>
       )}
     </header>
