@@ -5,6 +5,11 @@ type ContactUsProps = {
   sectionRef?: Ref<HTMLDivElement>;
 };
 
+function getCSRFToken(): string | null {
+  const match = document.cookie.match(/csrftoken=([^;]+)/);
+  return match ? match[1] : null;
+}
+
 function ContactUs({ sectionRef }: ContactUsProps) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -29,10 +34,11 @@ function ContactUs({ sectionRef }: ContactUsProps) {
     formData.append('email', email);
     formData.append('message', message);
 
-    const response = await fetch('/contact/', {
+    const response = await fetch('api/contact/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
+        'X-CSRFToken': getCSRFToken() || '',
       },
       body: formData.toString(),
     });
@@ -82,7 +88,7 @@ function ContactUs({ sectionRef }: ContactUsProps) {
             </div>
             <div className={styles.inputWrapper}>
               <input
-                type="mail"
+                type="email"
                 placeholder="Your email"
                 className={styles.input}
                 value={email}
