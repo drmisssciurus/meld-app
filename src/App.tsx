@@ -4,6 +4,8 @@ import GifsSlider from './components/GifsSlider/GifsSlider';
 import ContactUs from './components/ContactUs/ContactUs';
 import Publications from './components/Publications/Publications';
 import OurTeam from './components/OurTeam/OurTeam';
+import Form from './components/Form/Form';
+// import Form from './pages/Form/Form';
 import { useRef } from 'react';
 import ScrollToTopButton from './components/ScrollToTopButton/ScrollToTopButton';
 
@@ -27,6 +29,8 @@ function App() {
       <OurTeam sectionRef={peopleRef} />
       <ContactUs sectionRef={contactRef} />
       <ScrollToTopButton />
+      <Form />
+      {/* <Form /> */}
     </div>
   );
 }
