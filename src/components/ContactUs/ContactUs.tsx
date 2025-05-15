@@ -26,30 +26,39 @@ function ContactUs({ sectionRef }: ContactUsProps) {
     }
   }, [message]);
 
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const formData = new URLSearchParams();
-    formData.append('name', `${firstName} ${lastName}`.trim());
-    formData.append('email', email);
-    formData.append('message', message);
+    const payload = {
+      first_name: firstName,
+      last_name: lastName,
+      email,
+      message,
+    };
 
-    const response = await fetch('api/contact/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'X-CSRFToken': getCSRFToken() || '',
-      },
-      body: formData.toString(),
-    });
-    if (response.ok) {
-      setSuccess(true);
-      setFirstName('');
-      setLastName('');
-      setEmail('');
-      setMessage('');
-    } else {
-      alert('Error sending. Try later.');
+    try {
+      const response = await fetch(`${API_BASE_URL}/feedback/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.ok) {
+        setSuccess(true);
+        setFirstName('');
+        setLastName('');
+        setEmail('');
+        setMessage('');
+      } else {
+        const data = await response.json();
+        alert(`Error: ${data.message || 'Failed to send feedback.'}`);
+      }
+    } catch (error) {
+      alert('Network error. Try again later.');
     }
   };
 

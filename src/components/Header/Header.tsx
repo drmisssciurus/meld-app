@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Navigation from '../Navigation/Navigation';
 import styles from './Header.module.css';
 import logo from '../../assets/meld-logo.png';
+import { useNavigate } from 'react-router-dom';
 
 type HeaderProps = {
   sections: {
@@ -14,6 +15,8 @@ type HeaderProps = {
 function Header({ sections }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 660);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
@@ -60,7 +63,9 @@ function Header({ sections }: HeaderProps) {
               <span></span>
             </button>
           )}
-          <button className={styles.btn}>Run meld</button>
+          <button className={styles.btn} onClick={() => navigate('/form')}>
+            Run meld
+          </button>
         </div>
       </div>
       {isMobile && (

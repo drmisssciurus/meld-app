@@ -1,6 +1,8 @@
+import { useNavigate } from 'react-router-dom';
 import styles from './Banner.module.css';
 
 function Banner() {
+  const navigate = useNavigate();
   return (
     <div className={styles.bannerContainer}>
       <h2 className={styles.bannerTitle}>
@@ -16,7 +18,9 @@ function Banner() {
         You can use MELD to detect facial landmarks on videos in your browser
         with no additional installments needed!
       </p>
-      <button className={styles.btnTry}>Try now!</button>
+      <button className={styles.btnTry} onClick={() => navigate('/form')}>
+        Try now!
+      </button>
     </div>
   );
 }
