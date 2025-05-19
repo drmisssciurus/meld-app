@@ -1,0 +1,30 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  NODE_ENV: production
+
+cache:
+  paths:
+    - node_modules/
+
+# MR pipeline: check build, no deploy
+verify:
+  stage: build
+  image: node:18
+  script:
+    - npm ci
+    - npm run build
+  rules:
+    - if: '$CI_MERGE_REQUEST_ID'
+      when: always
+
+# Main deploy pipeline
+deploy:
+  stage: deploy
+  image: amazon/aws-cli
+  script:
+    - aws s3 sync dist/ s3://$S3_BUCKET_NAME --delete
+  only:
+    - main
