@@ -36,7 +36,13 @@
   opacity: 1;
 }
 
+.inputField:hover {
+  background-color: #f0f0ff;
+}
+
 .inputField:focus {
+  background-color: #f0f0ff;
+
   border-color: var(--color-violet);
   opacity: 0.5;
 }
@@ -219,8 +225,8 @@
 
 .videoInput {
   padding: 0.75rem 1rem;
-  border: 2px solid #ccc;
-  background-color: #f9f9f9;
+  border: 2px solid var(--color-violet);
+  background-color: var(--color-white);
   border-radius: 8px;
   cursor: pointer;
   transition: border-color 0.2s ease, background-color 0.2s ease;
@@ -229,6 +235,81 @@
 }
 
 .videoInput:hover {
-  border-color: #414181;
+  border-color: var(--color-violet);
   background-color: #f0f0ff;
+}
+
+/* Agreements */
+
+.checkboxGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.checkboxLabel {
+  font-size: 18px;
+  color: var(--color-black);
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+}
+
+.checkboxInput {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-light-violet);
+  border-radius: 5px;
+  background-color: transparent;
+  display: inline-block;
+  position: relative;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.checkboxInput::before {
+  content: '';
+  background-color: var(--color-light-violet);
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  transition: all 0.3s ease-in-out;
+}
+
+.checkboxInput:checked::before {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Btn */
+
+.btn {
+  cursor: pointer;
+  color: var(--color-violet);
+  font-weight: 700;
+  font-size: 18px;
+  font-family: 'Quicksand', sans-serif;
+  background-color: transparent;
+  border: 2px solid var(--color-violet);
+  padding: 10px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background-color: var(--color-violet);
+  color: var(--color-white);
+}
+
+.btn:active {
+  background-color: var(--color-dark-gray);
+  border-color: var(--color-dark-gray);
+  color: var(--color-white);
 }

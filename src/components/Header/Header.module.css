@@ -2,6 +2,8 @@
   display: flex;
   gap: 20px;
   align-items: center;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .logo {
@@ -16,13 +18,80 @@
   justify-content: space-between;
   position: relative;
 }
+
 .rightSide {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
+/* Navigation */
+
+.navContainer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.navItems {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  position: relative;
+  cursor: pointer;
+  color: var(--color-black);
+  text-decoration: none;
+  padding: 5px 0;
+  transition: color 0.3s ease;
+}
+
+.navItems::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-black);
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+.navItems:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+.navItems.active::after {
+  width: 100%;
+  left: 0;
+}
+
+.navItems.active {
+  color: var(--color-black);
+}
+
+/* Mobile */
+
+@media (max-width: 660px) {
+  .navContainer {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .navItems {
+    font-size: 18px;
+    padding: 8px 0;
+  }
+
+  .headerWrapper {
+    width: 40%;
+  }
+}
+
 .btn {
+  width: 95px;
   text-transform: uppercase;
   border: none;
   background-color: var(--color-black);
@@ -33,6 +102,7 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   transition: all 0.3s ease;
+  margin-left: 30px;
 }
 
 .btn:hover {
@@ -46,6 +116,7 @@
 }
 
 /* Burger menu */
+
 .burger {
   width: 30px;
   height: 20px;
@@ -83,6 +154,7 @@
 }
 
 /* Mobile nav */
+
 .mobileNav {
   display: flex;
   flex-direction: column;
@@ -92,6 +164,7 @@
 }
 
 /* Adapt */
+
 @media (max-width: 660px) {
   .headerContainer {
     flex-direction: row;
@@ -100,14 +173,14 @@
   }
 
   .rightSide {
-    width: 100%;
+    width: 60%;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
   .btn {
-    margin: 0 auto;
+    margin: 0;
   }
 
   .mobileNav {

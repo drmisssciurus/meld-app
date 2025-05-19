@@ -1,21 +1,20 @@
 import { useEffect, useState } from 'react';
-import Navigation from '../Navigation/Navigation';
 import styles from './Header.module.css';
 import logo from '../../assets/meld-logo.png';
 import { useNavigate } from 'react-router-dom';
 
 type HeaderProps = {
-  sections: {
-    publications: React.RefObject<HTMLDivElement | null>;
-    people: React.RefObject<HTMLDivElement | null>;
-    contact: React.RefObject<HTMLDivElement | null>;
+  page: 'home' | 'form';
+  sections?: {
+    publications?: React.RefObject<HTMLDivElement | null>;
+    people?: React.RefObject<HTMLDivElement | null>;
+    contact?: React.RefObject<HTMLDivElement | null>;
   };
 };
 
-function Header({ sections }: HeaderProps) {
+function Header({ page, sections }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 660);
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,27 +27,43 @@ function Header({ sections }: HeaderProps) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const scrollToSection = (section: keyof typeof sections) => {
-    setMenuOpen(false);
-    const scrollAction = () => {
-      sections[section]?.current?.scrollIntoView({ behavior: 'smooth' });
-    };
-
-    if (isMobile) {
-      setTimeout(() => {
-        scrollAction();
-      }, 200);
-    } else {
-      scrollAction();
-    }
+  const scrollToSection = (section: keyof NonNullable<typeof sections>) => {
+    sections?.[section]?.current?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  const navItems =
+    page === 'home'
+      ? [
+          { label: 'Home', action: () => navigate('/') },
+          {
+            label: 'Publications',
+            action: () => scrollToSection('publications'),
+          },
+          { label: 'People', action: () => scrollToSection('people') },
+          { label: 'Contact Us', action: () => scrollToSection('contact') },
+        ]
+      : [
+          { label: 'Home', action: () => navigate('/') },
+          {
+            label: 'See Results',
+            action: () => console.log('See Results Clicked'),
+          },
+        ];
 
   return (
     <header>
       <div className={styles.headerContainer}>
         <div className={styles.headerWrapper}>
           <img className={styles.logo} src={logo} alt="Logo" />
-          {!isMobile && <Navigation onNavigate={scrollToSection} />}
+          {!isMobile && (
+            <nav className={styles.navContainer}>
+              {navItems.map(({ label, action }) => (
+                <div key={label} className={styles.navItems} onClick={action}>
+                  {label}
+                </div>
+              ))}
+            </nav>
+          )}
         </div>
 
         <div className={styles.rightSide}>
@@ -63,18 +78,32 @@ function Header({ sections }: HeaderProps) {
               <span></span>
             </button>
           )}
-          <button className={styles.btn} onClick={() => navigate('/form')}>
-            Run meld
-          </button>
+          {page === 'home' && (
+            <button className={styles.btn} onClick={() => navigate('/form')}>
+              Run meld
+            </button>
+          )}
         </div>
       </div>
+
       {isMobile && (
         <div
           className={`${styles.mobileNav} ${
             menuOpen ? styles.mobileNavOpen : ''
           }`}
         >
-          <Navigation onNavigate={scrollToSection} />
+          {navItems.map(({ label, action }) => (
+            <div
+              key={label}
+              className={styles.navItems}
+              onClick={() => {
+                action();
+                setMenuOpen(false);
+              }}
+            >
+              {label}
+            </div>
+          ))}
         </div>
       )}
     </header>

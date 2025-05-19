@@ -15,6 +15,7 @@ function Home() {
   return (
     <div className="container">
       <Header
+        page="home"
         sections={{
           publications: publicationsRef,
           people: peopleRef,

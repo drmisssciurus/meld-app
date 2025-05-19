@@ -10,6 +10,69 @@ function Form() {
   const percentageTooltipRef = useRef<HTMLDivElement>(null);
   const sizeTooltipRef = useRef<HTMLDivElement>(null);
 
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+
+    const data = {
+      title: formData.get('title') as string,
+      description: formData.get('description') as string,
+      animal: formData.get('animal') as string,
+      percentage: Number(formData.get('percentage')),
+      size: Number(formData.get('size')),
+      upload: formData.get('upload') as File,
+      agree1: formData.get('agree1') === 'on',
+      agree2: formData.get('agree2') === 'on',
+    };
+
+    console.log(data);
+    try {
+      const response = await fetch(`${API_BASE_URL}/session/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        console.log('Session created:', result);
+        const videoFile = formData.get('upload') as File;
+        await uploadVideo(videoFile);
+      } else {
+        console.error('Error creating session:', result);
+      }
+    } catch (error) {
+      console.error('Request failed:', error);
+    }
+  };
+
+  async function uploadVideo(file: File) {
+    try {
+      const presignRes = await fetch(
+        `${API_BASE_URL}/submission/presigned-url`
+      );
+      const url = JSON.parse(await presignRes.text()); // ← потому что у тебя возвращается строка, а не JSON
+
+      const uploadRes = await fetch(url, {
+        method: 'PUT',
+        body: file,
+      });
+      console.log(url, uploadRes);
+      if (uploadRes.ok) {
+        console.log('Video uploaded successfully to S3');
+      } else {
+        console.error('Failed to upload video to S3');
+      }
+    } catch (err) {
+      console.error('Video upload error:', err);
+    }
+  }
+
   function useClickOutside<T extends HTMLElement>(
     ref: React.RefObject<T>,
     onOutsideClick: () => void
@@ -28,24 +91,6 @@ function Form() {
   useClickOutside(sizeTooltipRef, () => setShowSizeTooltip(false));
   useClickOutside(tooltipRef, () => setShowTooltip(false));
   useClickOutside(percentageTooltipRef, () => setShowPercentageTooltip(false));
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-
-    const data = {
-      title: formData.get('title') as string,
-      description: formData.get('description') as string,
-      animal: formData.get('animal') as string,
-      percentage: Number(formData.get('percentage')),
-      size: Number(formData.get('size')),
-      upload: formData.get('upload') as File,
-      agree1: formData.get('agree1') === 'on',
-      agree2: formData.get('agree2') === 'on',
-    };
-
-    console.log(data);
-  };
 
   return (
     <div className="container">
@@ -231,19 +276,29 @@ function Form() {
           />
         </div>
 
-        <div className={styles.items}>
-          <label>
-            <input type="checkbox" name="agree1" />
+        <div className={styles.checkboxGroup}>
+          <label className={styles.checkboxLabel}>
+            <input
+              type="checkbox"
+              name="agree1"
+              className={styles.checkboxInput}
+            />
             Agreements
           </label>
-          <label>
-            <input type="checkbox" name="agree2" />
+          <label className={styles.checkboxLabel}>
+            <input
+              type="checkbox"
+              name="agree2"
+              className={styles.checkboxInput}
+            />
             Agreements2
           </label>
         </div>
 
         <div className={styles.items}>
-          <button type="submit">Submit</button>
+          <button className={styles.btn} type="submit">
+            Submit
+          </button>
         </div>
       </form>
     </div>
