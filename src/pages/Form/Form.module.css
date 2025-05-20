@@ -313,3 +313,11 @@
   border-color: var(--color-dark-gray);
   color: var(--color-white);
 }
+
+/* Privacy */
+
+.privacy {
+  text-decoration: underline;
+  margin-left: 5px;
+  cursor: pointer;
+}

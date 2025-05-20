@@ -1,0 +1,50 @@
+.titleWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.description {
+  margin-bottom: 20px;
+}
+
+.dateModified {
+  font-size: 12px;
+}
+
+.pointsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.points {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn {
+  cursor: pointer;
+  color: var(--color-violet);
+  font-weight: 700;
+  font-size: 18px;
+  font-family: 'Quicksand', sans-serif;
+  background-color: transparent;
+  border: 2px solid var(--color-violet);
+  padding: 10px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background-color: var(--color-violet);
+  color: var(--color-white);
+}
+
+.btn:active {
+  background-color: var(--color-dark-gray);
+  border-color: var(--color-dark-gray);
+  color: var(--color-white);
+}

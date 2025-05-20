@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Header from '../../components/Header/Header';
 import styles from './Form.module.css';
+import { useNavigate } from 'react-router-dom';
 
 function Form() {
   const [showTooltip, setShowTooltip] = useState(false);
@@ -9,6 +10,7 @@ function Form() {
   const tooltipRef = useRef<HTMLDivElement>(null);
   const percentageTooltipRef = useRef<HTMLDivElement>(null);
   const sizeTooltipRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -108,7 +110,9 @@ function Form() {
           className={styles.inputField}
           id="description"
           name="description"
-          placeholder="Description"
+          placeholder="Description example: A Sphynx cat cuddles under a warm blanket
+            beside a crackling fireplace, enjoying the warmth and comfort of its
+            environment."
         />
 
         <div className={styles.animalWithTooltip}>
@@ -283,7 +287,7 @@ function Form() {
               name="agree1"
               className={styles.checkboxInput}
             />
-            Agreements
+            I don’t want my video to be used for scientific purposes.
           </label>
           <label className={styles.checkboxLabel}>
             <input
@@ -291,7 +295,13 @@ function Form() {
               name="agree2"
               className={styles.checkboxInput}
             />
-            Agreements2
+            <p>I Agree To </p>
+            <p
+              className={styles.privacy}
+              onClick={() => navigate('/privacy_policy')}
+            >
+              Privacy Policy
+            </p>
           </label>
         </div>
 
