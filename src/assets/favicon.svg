@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000"><g clip-path="url(#SvgjsClipPath1491)"><rect width="1000" height="1000" fill="#dad1f3"></rect><g transform="matrix(29.839612085042894,0,0,29.839612085042894,100,130.28720626631855)"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="26.81" height="24.78"><svg id="_Слой_1" data-name="Слой 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26.81 24.78">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #2d2e83;
+        stroke-width: 2px;
+      }
+
+      .cls-1, .cls-2 {
+        stroke: #2d2e83;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-2 {
+        fill: none;
+      }
+    </style>
+  <clipPath id="SvgjsClipPath1491"><rect width="1000" height="1000" x="0" y="0" rx="300" ry="300"></rect></clipPath></defs>
+  <g>
+    <circle class="cls-1" cx="2" cy="22.78" r="1"></circle>
+    <circle class="cls-1" cx="6.05" cy="8.39" r="1"></circle>
+    <circle class="cls-1" cx="11.82" cy="16.73" r="1"></circle>
+    <circle class="cls-1" cx="19.11" cy="2" r="1"></circle>
+    <circle class="cls-1" cx="24.81" cy="19.5" r="1"></circle>
+  </g>
+  <line class="cls-2" x1="2" y1="22.78" x2="6.05" y2="8.39"></line>
+  <line class="cls-2" x1="11.82" y1="16.73" x2="6.05" y2="8.39"></line>
+  <line class="cls-2" x1="11.82" y1="16.73" x2="19.11" y2="2"></line>
+  <line class="cls-2" x1="24.81" y1="19.5" x2="19.11" y2="2"></line>
+</svg></svg></g></g></svg>

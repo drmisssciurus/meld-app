@@ -2,6 +2,10 @@ import OurTeamItems from '../OurTeamItems/OurTeamItems';
 import styles from './OurTeam.module.css';
 
 import georgeImg from '../../assets/people/george.png';
+import annaImg from '../../assets/people/anna.avif';
+import ilanImg from '../../assets/people/ilan.avif';
+import nareedImg from '../../assets/people/nareed.avif';
+import ephantusImg from '../../assets/people/ephantus.avif';
 import { Ref } from 'react';
 type OurTeamProps = {
   sectionRef?: Ref<HTMLDivElement>;
@@ -15,49 +19,31 @@ function OurTeam({ sectionRef }: OurTeamProps) {
           image={georgeImg}
           name={'George Martvel'}
           title={'PhD Candidate'}
-          site={'#'}
+          site={'https://martvelge.com'}
         />
         <OurTeamItems
-          image={georgeImg}
-          name={'George Martvel'}
-          title={'PhD Candidate'}
-          site={'#'}
+          image={annaImg}
+          name={'Prof. ​Anna Zamansky'}
+          title={'Supervisor'}
+          site={'https://anna4animals8.wixsite.com/zamansky'}
         />
         <OurTeamItems
-          image={georgeImg}
-          name={'George Martvel'}
-          title={'PhD Candidate'}
-          site={'#'}
+          image={ilanImg}
+          name={'Prof. Ilan Shimshoni'}
+          title={'Supervisor'}
+          site={'https://sites.google.com/is.haifa.ac.il/ilan-shimshoni/home'}
         />
         <OurTeamItems
-          image={georgeImg}
-          name={'George Martvel'}
-          title={'PhD Candidate'}
-          site={'#'}
+          image={nareedImg}
+          name={'Nareed Farhat'}
+          title={'Project Manager'}
+          site={'https://scholar.google.com/citations?user=lbTDul8AAAAJ&hl=en'}
         />
         <OurTeamItems
-          image={georgeImg}
-          name={'George Martvel'}
-          title={'PhD Candidate'}
-          site={'#'}
-        />
-        <OurTeamItems
-          image={georgeImg}
-          name={'George Martvel'}
-          title={'PhD Candidate'}
-          site={'#'}
-        />
-        <OurTeamItems
-          image={georgeImg}
-          name={'George Martvel'}
-          title={'PhD Candidate'}
-          site={'#'}
-        />
-        <OurTeamItems
-          image={georgeImg}
-          name={'George Martvel'}
-          title={'PhD Candidate'}
-          site={'#'}
+          image={ephantusImg}
+          name={'Ephantus Kanyugi'}
+          title={'Data Manager'}
+          site={'https://datalabelers.org/'}
         />
       </div>
     </div>
