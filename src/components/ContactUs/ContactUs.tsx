@@ -66,10 +66,17 @@ function ContactUs({ sectionRef }: ContactUsProps) {
     <div ref={sectionRef} className="container">
       <div className={styles.contactUs}>
         <div className={styles.formDescription}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero
-          laudantium vitae at sapiente delectus error, reprehenderit, placeat
-          nemo debitis temporibus vel. Ut error aperiam saepe totam maxime
-          reprehenderit, tempore sapiente?
+          MELD provides ready-to-use multi-species landmark detection models
+          designed to work reliably on new videos without requiring manual
+          labeling or additional installation. If you experience limitations or
+          notice inaccuracies with specific data, we encourage you to reach
+          out—your feedback is vital for improving our models and expanding
+          their applicability. We are actively extending MELD to support new
+          species and continuously incorporating new data to enhance
+          performance. If you have relevant video or landmark data and are open
+          to sharing it, your contribution can directly support our development
+          efforts. Whether you have feedback, data to share, or simply want to
+          let us know you’re using MELD, we’d love to hear from you.
         </div>
         {success ? (
           <div className={styles.successMessage}>
