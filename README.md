@@ -1,54 +1,51 @@
-# React + TypeScript + Vite
+# MELD UI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🌐 Frontend for the MELD platform – used to upload animal videos and visualize ML-powered landmark detection results.
 
-Currently, two official plugins are available:
+This is a lightweight, static single-page app designed to interact with [MELD Core](https://gitlab.com/your-org/meld-core). It handles:
+- User authentication via Cognito
+- Video upload through presigned S3 URLs
+- Inference status display
+- Landmark result visualization
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🔧 Tech Stack
+- Built with [Vite](https://vitejs.dev/) + React <!-- Alina - change this if needed -->
+- Easily swappable to Vue or other SPA frameworks
+- Deployable via S3 + CloudFront
 
-## Expanding the ESLint configuration
+This frontend is designed to be a lightweight, static web interface. It interacts with the MELD Core API to:
+- Authenticate users via Cognito
+- Generate upload links to S3
+- Display upload progress and status
+- Visualize detection results
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+This repo is framework-flexible but assumes a modern frontend stack (e.g., React + Vite) unless otherwise customized.
+    ⚠️ Note: This project is currently under active development and may change rapidly.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 🔧 Local Development
+
+```bash
+npm install
+npm run dev
 ```
+App runs on [http://localhost:5173](http://localhost:5173) by default (via Vite).
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## ⚙️ Environment Variables
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+Use a `.env` file to configure the base API endpoint:
+```bash
+VITE_API_URL=https://api.meld.yourdomain.com
 ```
+    ⚠️ Note: This is a Vite-specific convention. For other frameworks, check their documentation for environment variable handling.
+
+## 🚀 CI/CD Pipeline
+Static build and deployment to S3 + CloudFront is handled automatically via GitLab CI/CD.
+No manual upload is required.
+
+Environment-specific variables (e.g., AWS credentials) are managed through GitLab's CI/CD settings.
+
+## 🙋 Maintainers
+<!-- Add later -->
+
+This project is maintained by the MELD subgroup. For any issues or feature requests, please open an issue in this repository.
+For any questions or concerns, please reach out to the maintainers.
