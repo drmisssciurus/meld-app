@@ -18,62 +18,89 @@ function Form() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
-    const data = {
+    const videoFile = formData.get('upload') as File;
+
+    const submissionPayload = {
       title: formData.get('title') as string,
       description: formData.get('description') as string,
       animal: formData.get('animal') as string,
       percentage: Number(formData.get('percentage')),
       size: Number(formData.get('size')),
-      upload: formData.get('upload') as File,
       agree1: formData.get('agree1') === 'on',
       agree2: formData.get('agree2') === 'on',
     };
 
-    console.log(data);
     try {
-      const response = await fetch(`${API_BASE_URL}/session/`, {
+      const sessionRes = await fetch(`${API_BASE_URL}/session/`, {
         method: 'POST',
+      });
+      const sessionData = await sessionRes.json();
+
+      if (!sessionRes.ok) {
+        console.error('Error creating session:', sessionData);
+        return;
+      }
+
+      const sessionId = sessionData.session_id;
+      console.log('Session created:', sessionId);
+
+      const objectKey = encodeURIComponent(videoFile.name);
+      const presignRes = await fetch(
+        `${API_BASE_URL}/submission/presigned-url?object_key=${objectKey}&session_id=${sessionId}`
+      );
+      const presignJson = await presignRes.json();
+      const url = presignJson.url;
+
+      if (!url) {
+        console.error('Presigned URL missing:', presignJson);
+        return;
+      }
+
+      const uploadRes = await fetch(url, {
+        method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': videoFile.type,
         },
-        body: JSON.stringify(data),
+        body: videoFile,
       });
 
-      const result = await response.json();
+      if (!uploadRes.ok) {
+        console.error('Failed to upload video to S3');
+        return;
+      }
+      console.log('Video uploaded successfully to S3');
 
-      if (response.ok) {
-        console.log('Session created:', result);
-        const videoFile = formData.get('upload') as File;
-        await uploadVideo(videoFile);
+      const submissionForm = new FormData();
+      submissionForm.append('video', videoFile);
+      submissionForm.append(
+        'submission',
+        new Blob(
+          [
+            JSON.stringify({
+              ...submissionPayload,
+              s3_url: `videos/${sessionId}/${videoFile.name}`,
+              session_id: sessionId,
+            }),
+          ],
+          { type: 'application/json' }
+        )
+      );
+
+      const finalRes = await fetch(`${API_BASE_URL}/submission/`, {
+        method: 'POST',
+        body: submissionForm,
+      });
+
+      const finalData = await finalRes.json();
+      if (finalRes.ok) {
+        console.log('Submission complete:', finalData);
       } else {
-        console.error('Error creating session:', result);
+        console.error('Submission failed:', finalData);
       }
     } catch (error) {
       console.error('Request failed:', error);
     }
   };
-
-  async function uploadVideo(file: File) {
-    try {
-      const presignRes = await fetch(
-        `${API_BASE_URL}/submission/presigned-url`
-      );
-      const url = JSON.parse(await presignRes.text());
-
-      const uploadRes = await fetch(url, {
-        method: 'PUT',
-        body: file,
-      });
-      console.log(url, uploadRes);
-      if (uploadRes.ok) {
-        console.log('Video uploaded successfully to S3');
-      } else {
-        console.error('Failed to upload video to S3');
-      }
-    } catch (err) {
-      console.error('Video upload error:', err);
-    }
-  }
 
   function useClickOutside(
     ref: React.RefObject<HTMLElement | null>,
@@ -115,49 +142,96 @@ function Form() {
             environment."
         />
 
-        <div className={styles.animalWithTooltip}>
-          <div
-            className={styles.labelWithButton}
-            onMouseEnter={() => setShowTooltip(true)}
-            onMouseLeave={() => setShowTooltip(false)}
-          >
-            <label htmlFor="animal">Animal type:</label>
-            <button
-              type="button"
-              className={styles.tooltipButton}
-              onClick={() => setShowTooltip((prev) => !prev)} // работает на мобилке
-              aria-label="More info about animal type"
+        <div className={styles.container}>
+          <div className={styles.animalWithTooltip}>
+            <div
+              className={styles.labelWithButton}
+              onMouseEnter={() => setShowTooltip(true)}
+              onMouseLeave={() => setShowTooltip(false)}
             >
-              ?
-            </button>
-          </div>
-          {showTooltip && (
-            <div className={styles.tooltipBox} ref={tooltipRef}>
-              Select the species of the animal you are analyzing. For example,
-              "cat" or "dog".
+              <label htmlFor="animal">Animal type:</label>
+              <button
+                type="button"
+                className={styles.tooltipButton}
+                onClick={() => setShowTooltip((prev) => !prev)} // работает на мобилке
+                aria-label="More info about animal type"
+              >
+                ?
+              </button>
             </div>
-          )}
+            {showTooltip && (
+              <div className={styles.tooltipBox} ref={tooltipRef}>
+                Select the species of the animal you are analyzing. For example,
+                "cat" or "dog".
+              </div>
+            )}
 
-          <div className={styles.animalChoiceWrapper}>
+            <div className={styles.animalChoiceWrapper}>
+              <div className={styles.animalChoiceGroup}>
+                <label className={styles.animalChoiceLabel}>
+                  <input
+                    type="radio"
+                    name="animal"
+                    value="dog"
+                    defaultChecked
+                    className={styles.animalChoiceInput}
+                  />
+                  <span className={styles.animalChoiceSpan}>Dog</span>
+                </label>
+                <label className={styles.animalChoiceLabel}>
+                  <input
+                    type="radio"
+                    name="animal"
+                    value="cat"
+                    className={styles.animalChoiceInput}
+                  />
+                  <span className={styles.animalChoiceSpan}>Cat</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.sizeWrapper}>
+            <div
+              className={styles.labelWithButton}
+              onMouseEnter={() => setShowSizeTooltip(true)}
+              onMouseLeave={() => setShowSizeTooltip(false)}
+            >
+              <label htmlFor="size">Size:</label>
+              <button
+                type="button"
+                className={styles.tooltipButton}
+                onClick={() => setShowSizeTooltip((prev) => !prev)}
+                aria-label="More info about size"
+              >
+                ?
+              </button>
+            </div>
+            {showSizeTooltip && (
+              <div className={styles.tooltipBox} ref={sizeTooltipRef}>
+                Choose model size. "Small" is faster, "Large" is more accurate.
+              </div>
+            )}
+
             <div className={styles.animalChoiceGroup}>
               <label className={styles.animalChoiceLabel}>
                 <input
                   type="radio"
-                  name="animal"
-                  value="dog"
+                  name="size"
+                  value="0"
                   defaultChecked
                   className={styles.animalChoiceInput}
                 />
-                <span className={styles.animalChoiceSpan}>Dog</span>
+                <span className={styles.animalChoiceSpan}>Small</span>
               </label>
               <label className={styles.animalChoiceLabel}>
                 <input
                   type="radio"
-                  name="animal"
-                  value="cat"
+                  name="size"
+                  value="1"
                   className={styles.animalChoiceInput}
                 />
-                <span className={styles.animalChoiceSpan}>Cat</span>
+                <span className={styles.animalChoiceSpan}>Large</span>
               </label>
             </div>
           </div>
@@ -222,51 +296,6 @@ function Form() {
                 defaultChecked
               />
               <span className={styles.fakeRadio}>100%</span>
-            </label>
-          </div>
-        </div>
-
-        <div className={styles.sizeWrapper}>
-          <div
-            className={styles.labelWithButton}
-            onMouseEnter={() => setShowSizeTooltip(true)}
-            onMouseLeave={() => setShowSizeTooltip(false)}
-          >
-            <label htmlFor="size">Size:</label>
-            <button
-              type="button"
-              className={styles.tooltipButton}
-              onClick={() => setShowSizeTooltip((prev) => !prev)}
-              aria-label="More info about size"
-            >
-              ?
-            </button>
-          </div>
-          {showSizeTooltip && (
-            <div className={styles.tooltipBox} ref={sizeTooltipRef}>
-              Choose model size. "Small" is faster, "Large" is more accurate.
-            </div>
-          )}
-
-          <div className={styles.animalChoiceGroup}>
-            <label className={styles.animalChoiceLabel}>
-              <input
-                type="radio"
-                name="size"
-                value="0"
-                defaultChecked
-                className={styles.animalChoiceInput}
-              />
-              <span className={styles.animalChoiceSpan}>Small</span>
-            </label>
-            <label className={styles.animalChoiceLabel}>
-              <input
-                type="radio"
-                name="size"
-                value="1"
-                className={styles.animalChoiceInput}
-              />
-              <span className={styles.animalChoiceSpan}>Large</span>
             </label>
           </div>
         </div>

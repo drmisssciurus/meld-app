@@ -47,6 +47,11 @@
   opacity: 0.5;
 }
 
+.container {
+  display: flex;
+  gap: 20px;
+}
+
 /* Animal */
 
 .animalWithTooltip {
@@ -90,7 +95,6 @@
 .animalChoiceGroup {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 0.5rem;
   justify-content: center;
 }
 

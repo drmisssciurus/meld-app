@@ -46,7 +46,7 @@ function Header({ page, sections }: HeaderProps) {
           { label: 'Home', action: () => navigate('/') },
           {
             label: 'See Results',
-            action: () => console.log('See Results Clicked'),
+            action: () => navigate('/results'),
           },
         ];
 
