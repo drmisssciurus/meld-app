@@ -5,10 +5,10 @@ type ContactUsProps = {
   sectionRef?: Ref<HTMLDivElement>;
 };
 
-function getCSRFToken(): string | null {
-  const match = document.cookie.match(/csrftoken=([^;]+)/);
-  return match ? match[1] : null;
-}
+// function getCSRFToken(): string | null {
+//   const match = document.cookie.match(/csrftoken=([^;]+)/);
+//   return match ? match[1] : null;
+// }
 
 function ContactUs({ sectionRef }: ContactUsProps) {
   const [firstName, setFirstName] = useState('');

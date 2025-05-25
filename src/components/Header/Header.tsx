@@ -4,7 +4,7 @@ import logo from '../../assets/meld-logo.png';
 import { useNavigate } from 'react-router-dom';
 
 type HeaderProps = {
-  page: 'home' | 'form';
+  page: 'home' | 'form' | 'results';
   sections?: {
     publications?: React.RefObject<HTMLDivElement | null>;
     people?: React.RefObject<HTMLDivElement | null>;

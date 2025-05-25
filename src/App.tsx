@@ -3,6 +3,7 @@ import Home from './pages/Home/Home';
 import Form from './pages/Form/Form';
 import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy';
 import PageNotFound from './pages/PageNotFound';
+import Results from './pages/Results/Results';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/form" element={<Form />} />
         <Route path="/privacy_policy" element={<PrivacyPolicy />} />
+        <Route path="/results" element={<Results />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>

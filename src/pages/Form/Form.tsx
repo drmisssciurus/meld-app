@@ -58,7 +58,7 @@ function Form() {
       const presignRes = await fetch(
         `${API_BASE_URL}/submission/presigned-url`
       );
-      const url = JSON.parse(await presignRes.text()); // ← потому что у тебя возвращается строка, а не JSON
+      const url = JSON.parse(await presignRes.text());
 
       const uploadRes = await fetch(url, {
         method: 'PUT',
@@ -75,8 +75,8 @@ function Form() {
     }
   }
 
-  function useClickOutside<T extends HTMLElement>(
-    ref: React.RefObject<T>,
+  function useClickOutside(
+    ref: React.RefObject<HTMLElement | null>,
     onOutsideClick: () => void
   ) {
     useEffect(() => {
@@ -96,7 +96,7 @@ function Form() {
 
   return (
     <div className="container">
-      <Header />
+      <Header page="form" />
       <form onSubmit={handleSubmit} action="" className={styles.form}>
         <input
           className={styles.inputField}
