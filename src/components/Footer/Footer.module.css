@@ -1,0 +1,8 @@
+.footerWrapper {
+  border-top: 1px solid var(--color-light-violet);
+}
+
+.logo {
+  width: 70px;
+  height: 70px;
+}

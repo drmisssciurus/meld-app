@@ -54,7 +54,12 @@ function Header({ page, sections }: HeaderProps) {
     <header>
       <div className={styles.headerContainer}>
         <div className={styles.headerWrapper}>
-          <img className={styles.logo} src={logo} alt="Logo" />
+          <img
+            className={styles.logo}
+            src={logo}
+            alt="Logo"
+            onClick={() => navigate('/')}
+          />
           {!isMobile && (
             <nav className={styles.navContainer}>
               {navItems.map(({ label, action }) => (
