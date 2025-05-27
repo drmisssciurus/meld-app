@@ -46,6 +46,11 @@ function OurTeam({ sectionRef }: OurTeamProps) {
           site={'https://datalabelers.org/'}
         />
       </div>
+      <h2 className={styles.title}>Advisors</h2>
+      <p className={styles.wrapper}>
+        Dr. ​Annika Bremhorst, ​Dr. Giulia Pedretti, ​Chiara Canori, Dr. Greta
+        Abele
+      </p>
     </div>
   );
 }

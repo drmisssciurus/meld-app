@@ -19,18 +19,13 @@ function Form() {
     const formData = new FormData(e.currentTarget);
 
     const videoFile = formData.get('upload') as File;
-
-    const submissionPayload = {
-      title: formData.get('title') as string,
-      description: formData.get('description') as string,
-      animal: formData.get('animal') as string,
-      percentage: Number(formData.get('percentage')),
-      size: Number(formData.get('size')),
-      agree1: formData.get('agree1') === 'on',
-      agree2: formData.get('agree2') === 'on',
-    };
+    if (!videoFile) {
+      console.error('No video file selected');
+      return;
+    }
 
     try {
+      // Step 1 — create session
       const sessionRes = await fetch(`${API_BASE_URL}/session/`, {
         method: 'POST',
       });
@@ -44,54 +39,32 @@ function Form() {
       const sessionId = sessionData.session_id;
       console.log('Session created:', sessionId);
 
-      const objectKey = encodeURIComponent(videoFile.name);
-      const presignRes = await fetch(
-        `${API_BASE_URL}/submission/presigned-url?object_key=${objectKey}&session_id=${sessionId}`
-      );
-      const presignJson = await presignRes.json();
-      const url = presignJson.url;
+      // Step 2 — create payload and form data
+      const submissionPayload = {
+        session_id: sessionId,
+        title: formData.get('title') as string,
+        description: formData.get('description') as string,
+        animal_type: formData.get('animal') as string,
+        fps_percent: Number(formData.get('percentage')),
+        use_full_weights: Number(formData.get('size')) === 1,
+        save_video: formData.get('agree1') !== 'on',
+        s3_key: `videos/${sessionId}/${videoFile.name}`,
+      };
 
-      if (!url) {
-        console.error('Presigned URL missing:', presignJson);
-        return;
-      }
-
-      const uploadRes = await fetch(url, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': videoFile.type,
-        },
-        body: videoFile,
-      });
-
-      if (!uploadRes.ok) {
-        console.error('Failed to upload video to S3');
-        return;
-      }
-      console.log('Video uploaded successfully to S3');
+      console.log('submissionPayload', submissionPayload);
 
       const submissionForm = new FormData();
       submissionForm.append('video', videoFile);
-      submissionForm.append(
-        'submission',
-        new Blob(
-          [
-            JSON.stringify({
-              ...submissionPayload,
-              s3_url: `videos/${sessionId}/${videoFile.name}`,
-              session_id: sessionId,
-            }),
-          ],
-          { type: 'application/json' }
-        )
-      );
+      submissionForm.append('submission', JSON.stringify(submissionPayload));
 
+      // Step 3 — submit everything to /submission/
       const finalRes = await fetch(`${API_BASE_URL}/submission/`, {
         method: 'POST',
         body: submissionForm,
       });
 
       const finalData = await finalRes.json();
+
       if (finalRes.ok) {
         console.log('Submission complete:', finalData);
       } else {

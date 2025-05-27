@@ -6,14 +6,13 @@ function Footer() {
   const navigate = useNavigate();
   return (
     <div className={styles.footerWrapper}>
-      <div>Footer</div>
+      <p> 2025 powered by Tech4Animals</p>
       <img
         className={styles.logo}
         src={logo}
         alt="Logo"
         onClick={() => navigate('/')}
       />
-      <p> 2025 powered by Tech4Animals</p>
     </div>
   );
 }
