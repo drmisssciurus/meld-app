@@ -18,60 +18,56 @@ function Form() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
-    const videoFile = formData.get('upload') as File;
-    if (!videoFile) {
-      console.error('No video file selected');
-      return;
-    }
+    const title = formData.get('title') as string;
+    const description = formData.get('description') as string;
+    const animal_type = formData.get('animal') as string;
+    const fps_percent = Number(formData.get('percentage'));
+    const use_full_weights = Number(formData.get('size')) === 1;
+    const save_video = formData.get('agree1') !== 'on';
+    const video = formData.get('upload') as File;
 
     try {
-      // Step 1 — create session
+      console.log('[1] Creating session...');
       const sessionRes = await fetch(`${API_BASE_URL}/session/`, {
         method: 'POST',
       });
-      const sessionData = await sessionRes.json();
 
-      if (!sessionRes.ok) {
-        console.error('Error creating session:', sessionData);
-        return;
+      const sessionData = await sessionRes.json();
+      console.log('[2] Session response:', sessionData);
+
+      if (!sessionRes.ok || !sessionData.session_id) {
+        throw new Error('Session creation failed or session_id missing');
       }
 
-      const sessionId = sessionData.session_id;
-      console.log('Session created:', sessionId);
+      const session_id = sessionData.session_id;
+      const s3_key = `videos/${session_id}/${video.name}`;
 
-      // Step 2 — create payload and form data
-      const submissionPayload = {
-        session_id: sessionId,
-        title: formData.get('title') as string,
-        description: formData.get('description') as string,
-        animal_type: formData.get('animal') as string,
-        fps_percent: Number(formData.get('percentage')),
-        use_full_weights: Number(formData.get('size')) === 1,
-        save_video: formData.get('agree1') !== 'on',
-        s3_key: `videos/${sessionId}/${videoFile.name}`,
-      };
-
-      console.log('submissionPayload', submissionPayload);
+      console.log('[3] Submitting to /submission with s3_key:', s3_key);
 
       const submissionForm = new FormData();
-      submissionForm.append('video', videoFile);
-      submissionForm.append('submission', JSON.stringify(submissionPayload));
+      submissionForm.append('video', video);
+      submissionForm.append('session_id', session_id.toString());
+      submissionForm.append('title', title);
+      submissionForm.append('description', description);
+      submissionForm.append('animal_type', animal_type);
+      submissionForm.append('fps_percent', String(fps_percent));
+      submissionForm.append('use_full_weights', String(use_full_weights));
+      submissionForm.append('save_video', String(save_video));
+      submissionForm.append('s3_key', s3_key);
 
-      // Step 3 — submit everything to /submission/
       const finalRes = await fetch(`${API_BASE_URL}/submission/`, {
         method: 'POST',
         body: submissionForm,
       });
 
-      const finalData = await finalRes.json();
+      const result = await finalRes.json();
+      console.log('[4] Final submission response:', result);
 
-      if (finalRes.ok) {
-        console.log('Submission complete:', finalData);
-      } else {
-        console.error('Submission failed:', finalData);
-      }
-    } catch (error) {
-      console.error('Request failed:', error);
+      if (!finalRes.ok) throw new Error(result.error || 'Submission failed');
+
+      console.log('✅ Submission successful!');
+    } catch (err) {
+      console.error('🚨 Submission error:', err);
     }
   };
 
