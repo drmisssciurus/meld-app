@@ -40,34 +40,55 @@ function Form() {
       }
 
       const session_id = sessionData.session_id;
-      const s3_key = `videos/${session_id}/${video.name}`;
+      const object_key = encodeURIComponent(video.name);
+      console.log('[3] Getting presigned URL...');
 
-      console.log('[3] Submitting to /submission with s3_key:', s3_key);
+      const presignRes = await fetch(
+        `${API_BASE_URL}/landmarks/presigned-url?object_key=${object_key}&session_id=${session_id}`
+      );
 
-      const submissionForm = new FormData();
-      submissionForm.append('video', video);
-      submissionForm.append('session_id', session_id.toString());
-      submissionForm.append('title', title);
-      submissionForm.append('description', description);
-      submissionForm.append('animal_type', animal_type);
-      submissionForm.append('fps_percent', String(fps_percent));
-      submissionForm.append('use_full_weights', String(use_full_weights));
-      submissionForm.append('save_video', String(save_video));
-      submissionForm.append('s3_key', s3_key);
+      if (!presignRes.ok) {
+        throw new Error('Failed to get presigned URL');
+      }
 
-      const finalRes = await fetch(`${API_BASE_URL}/submission/`, {
+      const { url: presignedUrl } = await presignRes.json();
+      console.log('[4] Uploading video to S3...');
+
+      const uploadRes = await fetch(presignedUrl, {
+        method: 'PUT',
+        body: video,
+      });
+
+      if (!uploadRes.ok) {
+        throw new Error('Video upload failed');
+      }
+
+      console.log('[5] Submitting metadata to landmarks API...');
+
+      const landmarksForm = new FormData();
+      landmarksForm.append('video', video);
+      landmarksForm.append('session_id', session_id.toString());
+      landmarksForm.append('title', title);
+      landmarksForm.append('description', description);
+      landmarksForm.append('animal_type', animal_type);
+      landmarksForm.append('fps_percent', String(fps_percent));
+      landmarksForm.append('use_full_weights', String(use_full_weights));
+      landmarksForm.append('save_video', String(save_video));
+      landmarksForm.append('s3_key', `videos/${session_id}/${video.name}`);
+
+      const finalRes = await fetch(`${API_BASE_URL}/landmarks/`, {
         method: 'POST',
-        body: submissionForm,
+        body: landmarksForm,
       });
 
       const result = await finalRes.json();
-      console.log('[4] Final submission response:', result);
+      console.log('[4] Final landmarks response:', result);
 
-      if (!finalRes.ok) throw new Error(result.error || 'Submission failed');
+      if (!finalRes.ok) throw new Error(result.error || 'landmarks failed');
 
-      console.log('✅ Submission successful!');
+      console.log('landmarks successful!');
     } catch (err) {
-      console.error('🚨 Submission error:', err);
+      console.error('landmarks error:', err);
     }
   };
 
@@ -274,6 +295,7 @@ function Form() {
             className={styles.videoInput}
             type="file"
             name="upload"
+            accept="video/*"
             required
           />
         </div>

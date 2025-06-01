@@ -1,6 +1,6 @@
 import { Ref, useEffect, useRef, useState } from 'react';
 import styles from './ContactUs.module.css';
-
+import cat from '../../assets/cat-feedback-form.png';
 type ContactUsProps = {
   sectionRef?: Ref<HTMLDivElement>;
 };
@@ -64,19 +64,17 @@ function ContactUs({ sectionRef }: ContactUsProps) {
 
   return (
     <div ref={sectionRef} className="container">
+      <h2 className={styles.title}>Contact Us</h2>
+      <p className={styles.title}>
+        MELD offers ready-to-use multi-species landmark detection models that
+        work on new videos without manual labeling or extra setup. We welcome
+        your feedback and data—both help improve our models and expand support
+        for more species. Let us know if you’re using MELD or want to
+        contribute!
+      </p>
       <div className={styles.contactUs}>
         <div className={styles.formDescription}>
-          MELD provides ready-to-use multi-species landmark detection models
-          designed to work reliably on new videos without requiring manual
-          labeling or additional installation. If you experience limitations or
-          notice inaccuracies with specific data, we encourage you to reach
-          out—your feedback is vital for improving our models and expanding
-          their applicability. We are actively extending MELD to support new
-          species and continuously incorporating new data to enhance
-          performance. If you have relevant video or landmark data and are open
-          to sharing it, your contribution can directly support our development
-          efforts. Whether you have feedback, data to share, or simply want to
-          let us know you’re using MELD, we’d love to hear from you.
+          <img className={styles.img} src={cat} alt="" />
         </div>
         {success ? (
           <div className={styles.successMessage}>
