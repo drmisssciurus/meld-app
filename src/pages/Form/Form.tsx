@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import Header from '../../components/Header/Header';
 import styles from './Form.module.css';
 import { useNavigate } from 'react-router-dom';
+import { getCookie } from '../../utils/cookies';
 
 function Form() {
   const [showTooltip, setShowTooltip] = useState(false);
@@ -26,25 +27,22 @@ function Form() {
     const save_video = formData.get('agree1') !== 'on';
     const video = formData.get('upload') as File;
 
+    const session_id = getCookie('session_id');
+    console.log(session_id);
+
     try {
-      console.log('[1] Creating session...');
-      const sessionRes = await fetch(`${API_BASE_URL}/session/`, {
-        method: 'POST',
-      });
-
-      const sessionData = await sessionRes.json();
-      console.log('[2] Session response:', sessionData);
-
-      if (!sessionRes.ok || !sessionData.session_id) {
-        throw new Error('Session creation failed or session_id missing');
-      }
-
-      const session_id = sessionData.session_id;
       const object_key = encodeURIComponent(video.name);
-      console.log('[3] Getting presigned URL...');
+      console.log('[1] Getting presigned URL...');
+      console.log(
+        '[debug] presign url:',
+        `${API_BASE_URL}/landmarks/presigned-url?object_key=${object_key}&session_id=${session_id}`
+      );
 
       const presignRes = await fetch(
-        `${API_BASE_URL}/landmarks/presigned-url?object_key=${object_key}&session_id=${session_id}`
+        `${API_BASE_URL}/landmarks/presigned-url?object_key=${object_key}&session_id=${session_id}`,
+        {
+          credentials: 'include',
+        }
       );
 
       if (!presignRes.ok) {
@@ -52,7 +50,7 @@ function Form() {
       }
 
       const { url: presignedUrl } = await presignRes.json();
-      console.log('[4] Uploading video to S3...');
+      console.log('[2] Uploading video to S3...');
 
       const uploadRes = await fetch(presignedUrl, {
         method: 'PUT',
@@ -63,22 +61,25 @@ function Form() {
         throw new Error('Video upload failed');
       }
 
-      console.log('[5] Submitting metadata to landmarks API...');
+      console.log('[3] Submitting metadata to landmarks API...');
+
+      const s3_key = `videos/${session_id}/${object_key}.mp4`;
 
       const landmarksForm = new FormData();
       landmarksForm.append('video', video);
-      landmarksForm.append('session_id', session_id.toString());
+      landmarksForm.append('session_id', session_id!); // теперь это нужно
       landmarksForm.append('title', title);
       landmarksForm.append('description', description);
       landmarksForm.append('animal_type', animal_type);
       landmarksForm.append('fps_percent', String(fps_percent));
       landmarksForm.append('use_full_weights', String(use_full_weights));
       landmarksForm.append('save_video', String(save_video));
-      landmarksForm.append('s3_key', `videos/${session_id}/${video.name}`);
+      landmarksForm.append('s3_key', s3_key);
 
       const finalRes = await fetch(`${API_BASE_URL}/landmarks/`, {
         method: 'POST',
         body: landmarksForm,
+        credentials: 'include',
       });
 
       const result = await finalRes.json();
