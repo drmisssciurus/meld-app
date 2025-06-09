@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import styles from './Header.module.css';
 import logo from '../../assets/meld-logo.png';
 import { useNavigate } from 'react-router-dom';
+import { getCookie, setCookie } from '../../utils/cookies';
 
 type HeaderProps = {
   page: 'home' | 'form' | 'results';
@@ -16,6 +17,37 @@ function Header({ page, sections }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 660);
   const navigate = useNavigate();
+
+  const url = import.meta.env.VITE_API_BASE_URL;
+
+  const handleStart = async () => {
+    const existingSessionId = getCookie('session_id');
+
+    if (existingSessionId) {
+      console.log('Session already exists: ', existingSessionId);
+      navigate('/form');
+      return;
+    }
+
+    try {
+      const res = await fetch(`${url}/session/`, {
+        method: 'POST',
+        credentials: 'include',
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.session_id) {
+        setCookie('session_id', data.session_id, 1);
+        console.log('Session started: ', data);
+        navigate('/form');
+      } else {
+        console.error('Failed create session: ', data);
+      }
+    } catch (err) {
+      console.error('Failed to create session: ', err);
+    }
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -84,7 +116,7 @@ function Header({ page, sections }: HeaderProps) {
             </button>
           )}
           {page === 'home' && (
-            <button className={styles.btn} onClick={() => navigate('/form')}>
+            <button className={styles.btn} onClick={handleStart}>
               Run meld
             </button>
           )}
