@@ -1,6 +1,5 @@
 .swiperContainer {
   width: 100%;
-  padding: 0 16px; /* отступы по краям */
   box-sizing: border-box;
   max-width: 1220px;
 }
@@ -19,7 +18,6 @@
   border-radius: 12px;
 }
 
-/* Дополнительно: ограничим высоту изображений на маленьких экранах */
 @media (max-width: 480px) {
   .swiperContainer {
     padding: 0 8px;

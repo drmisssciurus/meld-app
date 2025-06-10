@@ -1,9 +1,10 @@
 .wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem; /* можно изменить отступ между элементами */
+  gap: 1.5rem;
 }
 
 .title {
+  margin-top: 20px;
   text-align: center;
 }

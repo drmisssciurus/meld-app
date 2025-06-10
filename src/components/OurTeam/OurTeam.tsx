@@ -47,10 +47,12 @@ function OurTeam({ sectionRef }: OurTeamProps) {
         />
       </div>
       <h2 className={styles.title}>Advisors</h2>
-      <p className={styles.wrapper}>
-        Dr. ​Annika Bremhorst, ​Dr. Giulia Pedretti, ​Chiara Canori, Dr. Greta
-        Abele
-      </p>
+      <div className={styles.wrapper}>
+        <p className={styles.advisors}>Dr. ​Annika Bremhorst</p>
+        <p className={styles.advisors}> ​Dr. Giulia Pedretti</p>
+        <p className={styles.advisors}> ​Chiara Canori</p>
+        <p className={styles.advisors}>Dr. Greta Abele</p>
+      </div>
     </div>
   );
 }

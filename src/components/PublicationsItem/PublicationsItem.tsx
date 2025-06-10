@@ -5,6 +5,7 @@ type PublicationsItemProps = {
   name: string;
   autors: string;
   articleName: string;
+  articleLink: string;
   sectionRef?: Ref<HTMLDivElement>;
 };
 
@@ -12,13 +13,18 @@ function PublicationsItem({
   name,
   autors,
   articleName,
+  articleLink,
   sectionRef,
 }: PublicationsItemProps) {
   return (
     <div ref={sectionRef} className={styles.wrapper}>
-      <p>{name}</p>
-      <p>{autors}</p>
-      <a href="">{articleName}</a>
+      <div>
+        <p className={styles.name}>{name}</p>
+        <p className={styles.autors}>{autors}</p>
+      </div>
+      <a className={styles.article} href={articleLink} target="_blank">
+        {articleName}
+      </a>
     </div>
   );
 }

@@ -38,6 +38,11 @@ function Form() {
         `${API_BASE_URL}/landmarks/presigned-url?object_key=${object_key}&session_id=${session_id}`
       );
 
+      console.log('[debug] object_key:', object_key);
+      console.log(typeof object_key);
+      console.log('[debug] session_id:', session_id);
+      console.log(typeof session_id);
+
       const presignRes = await fetch(
         `${API_BASE_URL}/landmarks/presigned-url?object_key=${object_key}&session_id=${session_id}`,
         {
@@ -57,6 +62,8 @@ function Form() {
         body: video,
       });
 
+      console.log('uploadRes: ', uploadRes);
+
       if (!uploadRes.ok) {
         throw new Error('Video upload failed');
       }
@@ -67,7 +74,7 @@ function Form() {
 
       const landmarksForm = new FormData();
       landmarksForm.append('video', video);
-      landmarksForm.append('session_id', session_id!); // теперь это нужно
+      landmarksForm.append('session_id', session_id!);
       landmarksForm.append('title', title);
       landmarksForm.append('description', description);
       landmarksForm.append('animal_type', animal_type);
