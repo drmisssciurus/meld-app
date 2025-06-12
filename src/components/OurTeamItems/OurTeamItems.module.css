@@ -18,6 +18,19 @@
   display: block;
 }
 
+/*--------------uncomment if photo on mobile do not need------------------*/
+/* @media (max-width: 616px) {
+  .wrapper {
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: hsl(from var(--color-lightest-violet) h s l / 0.1);
+    border-radius: 24px;
+    padding: 7px 15px;
+  }
+  .image {
+    display: none;
+  }
+} */
+
 .link {
   color: var(--color-violet);
   text-decoration: underline;

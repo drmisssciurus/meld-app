@@ -7,8 +7,6 @@ import ContactUs from '../../components/ContactUs/ContactUs';
 import Publications from '../../components/Publications/Publications';
 import OurTeam from '../../components/OurTeam/OurTeam';
 import ScrollToTopButton from '../../components/ScrollToTopButton/ScrollToTopButton';
-import Footer from '../../components/Footer/Footer';
-
 function Home() {
   const publicationsRef = useRef<HTMLDivElement>(null);
   const peopleRef = useRef<HTMLDivElement>(null);
@@ -28,7 +26,6 @@ function Home() {
       <Publications sectionRef={publicationsRef} />
       <OurTeam sectionRef={peopleRef} />
       <ContactUs sectionRef={contactRef} />
-      <Footer />
       <ScrollToTopButton />
     </div>
   );

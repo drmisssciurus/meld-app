@@ -8,7 +8,7 @@ type PublicationsProps = {
 
 function Publications({ sectionRef }: PublicationsProps) {
   return (
-    <div ref={sectionRef} className="container">
+    <div ref={sectionRef}>
       <h2 className={styles.title}>Publications</h2>
       <div className={styles.wrapper}>
         <PublicationsItem

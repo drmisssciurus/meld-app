@@ -63,7 +63,7 @@ function ContactUs({ sectionRef }: ContactUsProps) {
   };
 
   return (
-    <div ref={sectionRef} className="container">
+    <div ref={sectionRef}>
       <h2 className={styles.title}>Contact Us</h2>
       <p className={styles.title}>
         MELD offers ready-to-use multi-species landmark detection models that
@@ -82,7 +82,7 @@ function ContactUs({ sectionRef }: ContactUsProps) {
           </div>
         ) : (
           <form onSubmit={handleSubmit} className={styles.form}>
-            <div>feedback form</div>
+            <div>Feedback Form</div>
             <div className={styles.inputNameWrapper}>
               <input
                 type="text"

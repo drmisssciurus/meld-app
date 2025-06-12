@@ -12,7 +12,7 @@ type OurTeamProps = {
 };
 function OurTeam({ sectionRef }: OurTeamProps) {
   return (
-    <div ref={sectionRef} className="container">
+    <div ref={sectionRef}>
       <h2 className={styles.title}>People</h2>
       <div className={styles.wrapper}>
         <OurTeamItems

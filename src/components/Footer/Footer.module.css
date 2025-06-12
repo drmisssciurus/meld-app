@@ -1,13 +1,22 @@
 .footerWrapper {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   border-top: 1px solid var(--color-light-violet);
-  padding: 20px;
-  margin-top: 20px;
+  padding: 20px 0;
+
+  justify-content: space-around;
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1220px;
 }
 
 .logo {
   width: 100px;
   height: 100px;
+}
+
+.link {
+  cursor: pointer;
+  color: var(--color-black);
+  margin-left: 5px;
 }
