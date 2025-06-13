@@ -35,20 +35,20 @@ function Form() {
       console.log('[1] Getting presigned URL...');
       console.log(
         '[debug] presign url:',
-        `${API_BASE_URL}/landmarks/presigned-url?object_key=${object_key}&session_id=${session_id}`
+        `${API_BASE_URL}/landmarks/presigned-url?&session_id=${session_id}`
       );
 
-      console.log('[debug] object_key:', object_key);
-      console.log(typeof object_key);
       console.log('[debug] session_id:', session_id);
       console.log(typeof session_id);
 
       const presignRes = await fetch(
-        `${API_BASE_URL}/landmarks/presigned-url?object_key=${object_key}&session_id=${session_id}`,
+        `${API_BASE_URL}/landmarks/presigned-url?&session_id=${session_id}`,
         {
           credentials: 'include',
         }
       );
+
+      console.log('presURL: ', presignRes);
 
       if (!presignRes.ok) {
         throw new Error('Failed to get presigned URL');
@@ -70,7 +70,7 @@ function Form() {
 
       console.log('[3] Submitting metadata to landmarks API...');
 
-      const s3_key = `videos/${session_id}/${object_key}.mp4`;
+      const s3_key = `videos/${session_id}/${object_key}`;
 
       const landmarksForm = new FormData();
       landmarksForm.append('video', video);
@@ -132,12 +132,10 @@ function Form() {
         />
 
         <textarea
-          className={styles.inputField}
+          className={`${styles.inputField} ${styles.inputFieldTextarea}`}
           id="description"
           name="description"
-          placeholder="Description example: A Sphynx cat cuddles under a warm blanket
-            beside a crackling fireplace, enjoying the warmth and comfort of its
-            environment."
+          placeholder="Description example: A Sphynx cat cuddles under a warm blanket beside a crackling fireplace, enjoying the warmth and comfort of its environment."
         />
 
         <div className={styles.container}>

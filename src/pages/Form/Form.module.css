@@ -18,17 +18,21 @@
 
 .inputField {
   margin: 0 auto;
-  width: 90%;
+  width: 100%;
   padding-left: 5px;
   padding-top: 5px;
   padding-bottom: 5px;
-  border: 2px solid var(--color-violet);
+  border: 2px solid var(--color-lightest-violet);
   border-radius: 8px;
   font-size: 16px;
   color: var(--color-black);
   background-color: var(--color-white);
   outline: none;
   transition: border-color 0.3s ease;
+}
+
+.inputFieldTextarea {
+  height: 120px;
 }
 
 .inputField::placeholder {
@@ -324,4 +328,11 @@
   text-decoration: underline;
   margin-left: 5px;
   cursor: pointer;
+}
+
+@media (max-width: 720px) {
+  .form {
+    max-width: 375px;
+    width: 89%;
+  }
 }
