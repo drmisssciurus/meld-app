@@ -1,5 +1,6 @@
 import CardsResults from '../../components/CardsResults/CardsResults';
 import Header from '../../components/Header/Header';
+import { getCookie } from '../../utils/cookies';
 import styles from './Results.module.css';
 
 export type ResultItem = {
@@ -50,6 +51,17 @@ const items: ResultItem[] = [
 ];
 
 function Results() {
+  const session_id = getCookie('session_id');
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+  const getData = async () => {
+    try {
+      const data = await fetch(`${API_BASE_URL}/session/${session_id}`);
+      console.log('[debug] DATA: ', data);
+    } catch (err) {
+      console.error('There in an error:', err);
+    }
+  };
   return (
     <div className="container">
       <Header page="results" />
@@ -58,6 +70,7 @@ function Results() {
           <CardsResults key={item.id} props={item} />
         ))}
       </div>
+      <button onClick={() => getData()}>GET DATA</button>
     </div>
   );
 }

@@ -8,10 +8,26 @@ function Form() {
   const [showTooltip, setShowTooltip] = useState(false);
   const [showPercentageTooltip, setShowPercentageTooltip] = useState(false);
   const [showSizeTooltip, setShowSizeTooltip] = useState(false);
+  const [video, setVideo] = useState<string>('');
+  const [videoFile, setVideoFile] = useState<File | null>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
   const percentageTooltipRef = useRef<HTMLDivElement>(null);
   const sizeTooltipRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleFileButtonClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setVideo(file.name);
+      setVideoFile(file);
+    }
+  };
 
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -25,13 +41,17 @@ function Form() {
     const fps_percent = Number(formData.get('percentage'));
     const use_full_weights = Number(formData.get('size')) === 1;
     const save_video = formData.get('agree1') !== 'on';
-    const video = formData.get('upload') as File;
+
+    if (!videoFile) {
+      alert('Please select a video');
+      return;
+    }
+    const object_key = encodeURIComponent(videoFile.name);
 
     const session_id = getCookie('session_id');
     console.log(session_id);
 
     try {
-      const object_key = encodeURIComponent(video.name);
       console.log('[1] Getting presigned URL...');
       console.log(
         '[debug] presign url:',
@@ -40,6 +60,8 @@ function Form() {
 
       console.log('[debug] session_id:', session_id);
       console.log(typeof session_id);
+
+      let s3_key = '';
 
       const presignRes = await fetch(
         `${API_BASE_URL}/landmarks/presigned-url?&session_id=${session_id}`,
@@ -54,12 +76,15 @@ function Form() {
         throw new Error('Failed to get presigned URL');
       }
 
-      const { url: presignedUrl } = await presignRes.json();
+      const presignJson = await presignRes.json();
+      const presignedUrl = presignJson.url;
+      s3_key = presignJson.object_key;
+
       console.log('[2] Uploading video to S3...');
 
       const uploadRes = await fetch(presignedUrl, {
         method: 'PUT',
-        body: video,
+        body: videoFile,
       });
 
       console.log('uploadRes: ', uploadRes);
@@ -70,10 +95,8 @@ function Form() {
 
       console.log('[3] Submitting metadata to landmarks API...');
 
-      const s3_key = `videos/${session_id}/${object_key}`;
-
       const landmarksForm = new FormData();
-      landmarksForm.append('video', video);
+      landmarksForm.append('video', videoFile);
       landmarksForm.append('session_id', session_id!);
       landmarksForm.append('title', title);
       landmarksForm.append('description', description);
@@ -296,14 +319,23 @@ function Form() {
           </div>
         </div>
 
-        <div className={styles.video}>
+        <div className={styles.videoInput}>
+          <button
+            type="button"
+            onClick={handleFileButtonClick}
+            className={styles.videoUpload}
+          >
+            Choose File
+          </button>
           <input
-            className={styles.videoInput}
             type="file"
-            name="upload"
             accept="video/*"
-            required
+            name="upload"
+            ref={fileInputRef}
+            style={{ display: 'none' }}
+            onChange={handleFileChange}
           />
+          {video ? <p>Selected: {video}</p> : <p>No file chosen</p>}
         </div>
 
         <div className={styles.checkboxGroup}>
@@ -313,7 +345,9 @@ function Form() {
               name="agree1"
               className={styles.checkboxInput}
             />
-            I don’t want my video to be used for scientific purposes.
+            <p className={styles.agreement}>
+              I don’t want my video to be used for scientific purposes.
+            </p>
           </label>
           <label className={styles.checkboxLabel}>
             <input

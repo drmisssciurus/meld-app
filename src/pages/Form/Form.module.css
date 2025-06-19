@@ -239,12 +239,26 @@
   cursor: pointer;
   transition: border-color 0.2s ease, background-color 0.2s ease;
   font-family: inherit;
-  font-size: 1rem;
+
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .videoInput:hover {
   border-color: var(--color-violet);
-  background-color: #f0f0ff;
+  background-color: #d3b5d9;
+}
+
+.videoUpload {
+  border: none;
+  border-radius: 8px;
+  color: var(--color-white);
+  font-family: 'Poppins', sans-serif;
+  padding: 5px;
+  background-color: var(--color-light-violet);
+  /* font-size: 24px; */
+  font-size: clamp(1.375rem, 1.32rem + 0.237vw, 1.5rem);
 }
 
 /* Agreements */
@@ -334,5 +348,21 @@
   .form {
     max-width: 375px;
     width: 89%;
+  }
+
+  .inputField {
+    width: 96%;
+  }
+
+  .container {
+    gap: 10px;
+  }
+
+  .radioContainer {
+    justify-content: center;
+  }
+
+  .agreement {
+    width: 80%;
   }
 }
