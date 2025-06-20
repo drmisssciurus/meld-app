@@ -46,7 +46,7 @@ function Form() {
       alert('Please select a video');
       return;
     }
-    const object_key = encodeURIComponent(videoFile.name);
+    // const object_key = encodeURIComponent(videoFile.name);
 
     const session_id = getCookie('session_id');
     console.log(session_id);

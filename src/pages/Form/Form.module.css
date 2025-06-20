@@ -37,7 +37,7 @@
 
 .inputField::placeholder {
   color: var(--color-black);
-  opacity: 1;
+  opacity: 0.5;
 }
 
 .inputField:hover {
@@ -48,7 +48,8 @@
   background-color: #f0f0ff;
 
   border-color: var(--color-violet);
-  opacity: 0.5;
+  /* opacity: 0.5; */
+  color: black;
 }
 
 .container {
@@ -255,7 +256,7 @@
   border-radius: 8px;
   color: var(--color-white);
   font-family: 'Poppins', sans-serif;
-  padding: 5px;
+  padding: 0 8px;
   background-color: var(--color-light-violet);
   /* font-size: 24px; */
   font-size: clamp(1.375rem, 1.32rem + 0.237vw, 1.5rem);
