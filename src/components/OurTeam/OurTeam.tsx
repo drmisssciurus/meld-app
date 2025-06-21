@@ -3,7 +3,8 @@ import styles from './OurTeam.module.css';
 
 import georgeImg from '../../assets/people/george.png';
 import annaImg from '../../assets/people/anna.avif';
-import ilanImg from '../../assets/people/ilan.avif';
+// import ilanImg from '../../assets/people/ilan.avif';
+import annikaImg from '../../assets/people/annika.png';
 import nareedImg from '../../assets/people/nareed.avif';
 import ephantusImg from '../../assets/people/ephantus.avif';
 import { Ref } from 'react';
@@ -17,8 +18,8 @@ function OurTeam({ sectionRef }: OurTeamProps) {
       <div className={styles.wrapper}>
         <OurTeamItems
           image={georgeImg}
-          name={'George Martvel'}
-          title={'PhD Candidate'}
+          name={'Dr. George Martvel'}
+          title={'Project Lead'}
           site={'https://martvelge.com'}
         />
         <OurTeamItems
@@ -28,10 +29,10 @@ function OurTeam({ sectionRef }: OurTeamProps) {
           site={'https://anna4animals8.wixsite.com/zamansky'}
         />
         <OurTeamItems
-          image={ilanImg}
-          name={'Prof. Ilan Shimshoni'}
+          image={annikaImg}
+          name={'Dr. Annika Bremhorst'}
           title={'Supervisor'}
-          site={'https://sites.google.com/is.haifa.ac.il/ilan-shimshoni/home'}
+          site={'https://dogsandscience.com/'}
         />
         <OurTeamItems
           image={nareedImg}
@@ -48,9 +49,9 @@ function OurTeam({ sectionRef }: OurTeamProps) {
       </div>
       <h2 className={styles.title}>Advisors</h2>
       <div className={styles.wrapper}>
-        <p className={styles.advisors}>Dr. ​Annika Bremhorst</p>
-        <p className={styles.advisors}> ​Dr. Giulia Pedretti</p>
-        <p className={styles.advisors}> ​Chiara Canori</p>
+        <p className={styles.advisors}>​Dr. Giulia Pedretti</p>
+        <p className={styles.advisors}>Prof. Ilan Shimshoni</p>
+        <p className={styles.advisors}>​Chiara Canori</p>
         <p className={styles.advisors}>Dr. Greta Abele</p>
       </div>
     </div>

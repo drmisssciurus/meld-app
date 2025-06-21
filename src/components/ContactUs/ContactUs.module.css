@@ -4,17 +4,19 @@
   align-items: center;
   justify-content: space-around;
   gap: 20px;
+  text-align: center;
 }
 
 .title {
   text-align: center;
   padding: 20px;
+  margin-top: 10px;
 }
 
 .formDescription {
-  width: 40%;
+  width: 60%;
   text-align: center;
-  /* padding: 20px; */
+  margin: 0 auto;
 }
 
 .img {

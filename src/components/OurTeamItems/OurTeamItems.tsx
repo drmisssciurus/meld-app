@@ -10,7 +10,7 @@ function OurTeamItems({ name, title, site, image }: OurTeamItemsProps) {
     <div className={styles.wrapper}>
       <p className={styles.name}>{name}</p>
       <div>
-        <img className={styles.image} src={image} alt="George Martvel" />
+        <img className={styles.image} src={image} alt={name} />
       </div>
       <p className={styles.title}>{title}</p>
       <a className={styles.link} href={site} target="_blank">

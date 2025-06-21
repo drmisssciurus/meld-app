@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { getCookie } from '../../utils/cookies';
 
 function Form() {
+  const [attempts, setAttempts] = useState<number>(10);
   const [showTooltip, setShowTooltip] = useState(false);
   const [showPercentageTooltip, setShowPercentageTooltip] = useState(false);
   const [showSizeTooltip, setShowSizeTooltip] = useState(false);
@@ -14,7 +15,7 @@ function Form() {
   const percentageTooltipRef = useRef<HTMLDivElement>(null);
   const sizeTooltipRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
-
+  const session_id = getCookie('session_id');
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFileButtonClick = () => {
@@ -28,6 +29,21 @@ function Form() {
       setVideoFile(file);
     }
   };
+
+  useEffect(() => {
+    async function fetchSessionData() {
+      try {
+        const response = await fetch(`${API_BASE_URL}/session/${session_id}`);
+        const data = await response.json();
+        const submissionsLength = data.submissions?.length || 0;
+        setAttempts(10 - submissionsLength);
+      } catch (error) {
+        console.error('Failed to fetch session: ', error);
+      }
+    }
+
+    fetchSessionData();
+  }, []);
 
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -85,7 +101,14 @@ function Form() {
       const uploadRes = await fetch(presignedUrl, {
         method: 'PUT',
         body: videoFile,
+        headers: {
+          'Content-Type': videoFile.type,
+        },
       });
+
+      console.log('URL:', presignedUrl);
+      console.log('Key:', s3_key);
+      console.log('File:', videoFile.name);
 
       console.log('uploadRes: ', uploadRes);
 
@@ -146,6 +169,7 @@ function Form() {
     <div className="container">
       <Header page="form" />
       <form onSubmit={handleSubmit} action="" className={styles.form}>
+        <p>You have {attempts} attempts left</p>
         <input
           className={styles.inputField}
           type="text"

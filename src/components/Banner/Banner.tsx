@@ -32,6 +32,7 @@ function Banner() {
       }
     } catch (err) {
       console.error('Failed to create session: ', err);
+      alert(err);
     }
   };
   return (
