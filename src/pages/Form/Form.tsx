@@ -77,8 +77,6 @@ function Form() {
       console.log('[debug] session_id:', session_id);
       console.log(typeof session_id);
 
-      let s3_key = '';
-
       const presignRes = await fetch(
         `${API_BASE_URL}/landmarks/presigned-url?&session_id=${session_id}`,
         {
@@ -94,6 +92,7 @@ function Form() {
 
       const presignJson = await presignRes.json();
       const presignedUrl = presignJson.url;
+      let s3_key = '';
       s3_key = presignJson.object_key;
 
       console.log('[2] Uploading video to S3...');
@@ -101,9 +100,9 @@ function Form() {
       const uploadRes = await fetch(presignedUrl, {
         method: 'PUT',
         body: videoFile,
-        headers: {
-          'Content-Type': videoFile.type,
-        },
+        // headers: {
+        //   'Content-Type': videoFile.type,
+        // },
       });
 
       console.log('URL:', presignedUrl);
