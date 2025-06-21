@@ -11,6 +11,7 @@ function Form() {
   const [showSizeTooltip, setShowSizeTooltip] = useState(false);
   const [video, setVideo] = useState<string>('');
   const [videoFile, setVideoFile] = useState<File | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const tooltipRef = useRef<HTMLDivElement>(null);
   const percentageTooltipRef = useRef<HTMLDivElement>(null);
   const sizeTooltipRef = useRef<HTMLDivElement>(null);
@@ -49,6 +50,7 @@ function Form() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsSubmitting(true);
     const formData = new FormData(e.currentTarget);
 
     const title = formData.get('title') as string;
@@ -140,6 +142,12 @@ function Form() {
       if (!finalRes.ok) throw new Error(result.error || 'landmarks failed');
 
       console.log('landmarks successful!');
+
+      e.currentTarget.reset();
+      setVideo('');
+      setVideoFile(null);
+
+      navigate('/results');
     } catch (err) {
       console.error('landmarks error:', err);
     }
@@ -389,8 +397,8 @@ function Form() {
         </div>
 
         <div className={styles.items}>
-          <button className={styles.btn} type="submit">
-            Submit
+          <button className={styles.btn} type="submit" disabled={isSubmitting}>
+            {isSubmitting ? 'Submitting...' : 'Submit'}
           </button>
         </div>
       </form>

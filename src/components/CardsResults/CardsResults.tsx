@@ -129,10 +129,12 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
 
   useEffect(() => {
     console.log(`[${props.title}] useEffect: video polling`);
+    console.log(`[${props.title}] currentStatus = ${currentStatus}`);
+    console.log(`[${props.title}] props.video = ${props.video}`);
 
     let interval: ReturnType<typeof setInterval>;
 
-    if ((isTracking || isDrawing) && props.video) {
+    if (props.video) {
       console.log(`[${props.title}] Starting video polling...`);
 
       interval = setInterval(async () => {
