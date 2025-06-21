@@ -11,8 +11,9 @@ export type ResultItem = {
   animal_type: string;
   model: string;
   fps: string;
-  file: boolean;
-  status: boolean;
+  file: string | null;
+  video: string | null;
+  status: string;
 };
 
 function Results() {
@@ -33,8 +34,9 @@ function Results() {
           animal_type: sub.animal_type,
           model: sub.weights_type_bool ? 'large-weight' : 'light-weight',
           fps: sub.percentage.toString(),
-          file: Boolean(sub.result_csv),
-          status: sub.status === 'finished',
+          file: sub.result_csv,
+          video: sub.result_video,
+          status: sub.status,
         }));
 
         setItems(submissions);

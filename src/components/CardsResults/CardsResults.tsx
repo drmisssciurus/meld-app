@@ -17,9 +17,13 @@ function CardsResults({ props }: CardsResultsProps) {
       <p className={styles.description}>{props.description}</p>
       <div className={styles.fileWrapper}>
         <p className={styles.file}>
-          {props.file ? 'name.cvs' : 'your file would be here'}
+          {props.file ? props.file : 'your file would be here'}
         </p>
-        <p className={styles.status}>{props.status ? 'Ready' : 'Loading...'}</p>
+        <p className={styles.status}>{props.status}</p>
+        <p className={styles.file}>
+          {props.video ? props.video : 'your video would be here'}
+        </p>
+        <p>status: {props.status}</p>
       </div>
     </div>
   );

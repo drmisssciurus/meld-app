@@ -4,7 +4,7 @@ import styles from './OurTeam.module.css';
 import georgeImg from '../../assets/people/george.png';
 import annaImg from '../../assets/people/anna.avif';
 // import ilanImg from '../../assets/people/ilan.avif';
-import annikaImg from '../../assets/people/annika.png';
+import annikaImg from '../../assets/people/annika1.png';
 import nareedImg from '../../assets/people/nareed.avif';
 import ephantusImg from '../../assets/people/ephantus.avif';
 import { Ref } from 'react';
