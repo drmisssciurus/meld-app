@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
 import { ResultItem } from '../../pages/Results/Results';
 import styles from './CardsResults.module.css';
-import { getCookie } from '../../utils/cookies';
+// import { getCookie } from '../../utils/cookies';
 
 type CardsResultsProps = {
   props: ResultItem;
   session_id: string | null;
 };
 
-function CardsResults({ props }: CardsResultsProps) {
+function CardsResults({ props, session_id }: CardsResultsProps) {
   const [fileUrl, setFileUrl] = useState<string | null>(props.file);
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
   const [currentStatus, setCurrentStatus] = useState<string>(props.status);
 
-  const session_id = getCookie('session_id');
+  // const session_id = getCookie('session_id');
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   const isTracking = currentStatus === 'tracking landmarks';
@@ -56,10 +56,12 @@ function CardsResults({ props }: CardsResultsProps) {
 
         if (
           matchingSubmission &&
-          matchingSubmission.status !== 'tracking landmarks' &&
-          matchingSubmission.status !== 'drawing landmarks'
+          (matchingSubmission.status === 'completed' ||
+            matchingSubmission.status === 'failed')
         ) {
-          console.log(`[${props.title}] Stopping polling — final status`);
+          console.log(
+            `[${props.title}] Stopping polling — final status: ${matchingSubmission.status}`
+          );
           clearInterval(interval);
         }
       } catch (err) {
