@@ -52,7 +52,7 @@ function Results() {
       <Header page="results" />
       <div className={styles.resultsWrapper}>
         {items.map((item) => (
-          <CardsResults key={item.id} props={item} />
+          <CardsResults key={item.id} props={item} session_id={session_id} />
         ))}
       </div>
     </div>

@@ -5,7 +5,7 @@ import { getCookie } from '../../utils/cookies';
 
 type CardsResultsProps = {
   props: ResultItem;
-  session_id: string;
+  session_id: string | null;
 };
 
 function CardsResults({ props }: CardsResultsProps) {
