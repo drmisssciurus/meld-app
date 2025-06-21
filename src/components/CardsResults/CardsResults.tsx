@@ -62,6 +62,10 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
           console.log(
             `[${props.title}] Stopping polling — final status: ${matchingSubmission.status}`
           );
+          console.log(
+            `[${props.title}] STOP triggered by: ${matchingSubmission.status}`
+          );
+
           clearInterval(interval);
         }
       } catch (err) {
@@ -77,10 +81,12 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
 
   useEffect(() => {
     console.log(`[${props.title}] useEffect: file polling`);
+    console.log(`[${props.title}] currentStatus = ${currentStatus}`);
+    console.log(`[${props.title}] props.file = ${props.file}`);
 
     let interval: ReturnType<typeof setInterval>;
 
-    if ((isTracking || isDrawing) && props.file) {
+    if (props.file) {
       console.log(`[${props.title}] Starting file polling...`);
 
       interval = setInterval(async () => {
@@ -101,6 +107,11 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
 
           if (data.url) {
             console.log(`[${props.title}] File URL ready`);
+            console.log(
+              `[${props.title}] ✅ Calling setFileUrl with:`,
+              data.url
+            );
+
             setFileUrl(data.url);
             clearInterval(interval);
           }
