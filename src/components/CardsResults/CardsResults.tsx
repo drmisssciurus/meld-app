@@ -18,8 +18,8 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
   // const session_id = getCookie('session_id');
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-  const isTracking = currentStatus === 'tracking landmarks';
-  const isDrawing = currentStatus === 'drawing landmarks';
+  // const isTracking = currentStatus === 'tracking landmarks';
+  // const isDrawing = currentStatus === 'drawing landmarks';
 
   //Poll session to update status and file/video keys
   useEffect(() => {
