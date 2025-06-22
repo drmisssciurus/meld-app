@@ -19,9 +19,9 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
   const isTracking = currentStatus === 'tracking landmarks';
   const isDrawing = currentStatus === 'drawing landmarks';
 
+  //fetching sessions
   useEffect(() => {
-    console.log(`[${props.title}] useEffect: polling session started`);
-    const interval = setInterval(async () => {
+    async function pollSession() {
       console.log(`[${props.title}] Polling session/${session_id}...`);
       try {
         const res = await fetch(`${API_BASE_URL}/session/${session_id}`, {
@@ -30,6 +30,7 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
         console.log(`[${props.title}] /session response status:`, res.status);
         const data = await res.json();
         console.log(`[${props.title}] Session data:`, data);
+
         const matchingSubmission = data.submissions.find(
           (sub: any) =>
             sub.result_csv === props.file ||
@@ -44,34 +45,28 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
             `[${props.title}] Found matching submission. Status:`,
             matchingSubmission.status
           );
-        }
+          if (matchingSubmission.status !== currentStatus) {
+            setCurrentStatus(matchingSubmission.status);
+          }
 
-        if (matchingSubmission && matchingSubmission.status !== currentStatus) {
-          console.log(
-            `[${props.title}] Updated status ->`,
-            matchingSubmission.status
-          );
-          setCurrentStatus(matchingSubmission.status);
-        }
-
-        if (
-          matchingSubmission &&
-          (matchingSubmission.status === 'completed' ||
-            matchingSubmission.status === 'failed')
-        ) {
-          console.log(
-            `[${props.title}] Stopping polling — final status: ${matchingSubmission.status}`
-          );
-          console.log(
-            `[${props.title}] STOP triggered by: ${matchingSubmission.status}`
-          );
-
-          clearInterval(interval);
+          if (
+            matchingSubmission.status === 'completed' ||
+            matchingSubmission.status === 'failed'
+          ) {
+            console.log(
+              `[${props.title}] Stopping polling — final status: ${matchingSubmission.status}`
+            );
+            clearInterval(interval);
+          }
         }
       } catch (err) {
         console.error(`[${props.title}] Polling error:`, err);
       }
-    }, 15000);
+    }
+
+    pollSession();
+
+    const interval = setInterval(pollSession, 15000);
 
     return () => {
       console.log(`[${props.title}] Polling session stopped`);
@@ -79,6 +74,7 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
     };
   }, [API_BASE_URL, props, currentStatus]);
 
+  //fetch file
   useEffect(() => {
     console.log(`[${props.title}] useEffect: file polling`);
     console.log(`[${props.title}] currentStatus = ${currentStatus}`);
@@ -86,39 +82,31 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
 
     let interval: ReturnType<typeof setInterval>;
 
-    if (props.file) {
-      console.log(`[${props.title}] Starting file polling...`);
+    async function pollFile() {
+      console.log(`[${props.title}] Fetching file URL...`);
+      try {
+        const res = await fetch(
+          `${API_BASE_URL}/landmarks/download?object_key=${props.file}`,
+          { credentials: 'include' }
+        );
 
-      interval = setInterval(async () => {
-        console.log(`[${props.title}] Fetching file URL...`);
-        console.log('!!!props.file:', props.file);
-        try {
-          const res = await fetch(
-            `${API_BASE_URL}/landmarks/download?object_key=${props.file}`,
-            {
-              credentials: 'include',
-            }
-          );
+        console.log(`[${props.title}] File response status:`, res.status);
+        const data = await res.json();
+        console.log(`[${props.title}] File data:`, data);
 
-          console.log(`[${props.title}] File response status:`, res.status);
-
-          const data = await res.json();
-          console.log(`[${props.title}] File data:`, data);
-
-          if (data.url) {
-            console.log(`[${props.title}] File URL ready`);
-            console.log(
-              `[${props.title}] ✅ Calling setFileUrl with:`,
-              data.url
-            );
-
-            setFileUrl(data.url);
-            clearInterval(interval);
-          }
-        } catch (error) {
-          console.error(`[${props.title}] File fetch error:`, error);
+        if (data.url) {
+          console.log(`[${props.title}] File URL ready`);
+          setFileUrl(data.url);
+          clearInterval(interval);
         }
-      }, 15000);
+      } catch (error) {
+        console.error(`[${props.title}] File fetch error:`, error);
+      }
+    }
+
+    if (props.file) {
+      pollFile();
+      interval = setInterval(pollFile, 15000);
     }
 
     return () => {
@@ -127,6 +115,7 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
     };
   }, [isTracking, isDrawing, props.file, API_BASE_URL]);
 
+  //fetch video
   useEffect(() => {
     console.log(`[${props.title}] useEffect: video polling`);
     console.log(`[${props.title}] currentStatus = ${currentStatus}`);
@@ -134,33 +123,31 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
 
     let interval: ReturnType<typeof setInterval>;
 
-    if (props.video) {
-      console.log(`[${props.title}] Starting video polling...`);
+    async function pollVideo() {
+      console.log(`[${props.title}] Fetching video URL...`);
+      try {
+        const res = await fetch(
+          `${API_BASE_URL}/landmarks/download?object_key=${props.video}`,
+          { credentials: 'include' }
+        );
 
-      interval = setInterval(async () => {
-        console.log(`[${props.title}] Fetching video URL...`);
-        try {
-          const res = await fetch(
-            `${API_BASE_URL}/landmarks/download?object_key=${props.video}`,
-            {
-              credentials: 'include',
-            }
-          );
+        console.log(`[${props.title}] Video response status:`, res.status);
+        const data = await res.json();
+        console.log(`[${props.title}] Video data:`, data);
 
-          console.log(`[${props.title}] Video response status:`, res.status);
-
-          const data = await res.json();
-          console.log(`[${props.title}] Video data:`, data);
-
-          if (data.url) {
-            console.log(`[${props.title}] Video URL ready`);
-            setVideoUrl(data.url);
-            clearInterval(interval);
-          }
-        } catch (error) {
-          console.error(`[${props.title}] Video fetch error:`, error);
+        if (data.url) {
+          console.log(`[${props.title}] Video URL ready`);
+          setVideoUrl(data.url);
+          clearInterval(interval);
         }
-      }, 15000);
+      } catch (error) {
+        console.error(`[${props.title}] Video fetch error:`, error);
+      }
+    }
+
+    if (props.video) {
+      pollVideo();
+      interval = setInterval(pollVideo, 15000);
     }
 
     return () => {

@@ -143,9 +143,9 @@ function Form() {
 
       console.log('landmarks successful!');
 
-      e.currentTarget.reset();
-      setVideo('');
-      setVideoFile(null);
+      // e.currentTarget.reset();
+      // setVideo('');
+      // setVideoFile(null);
 
       navigate('/results');
     } catch (err) {
