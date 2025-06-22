@@ -78,9 +78,12 @@ function Form() {
 
       console.log('[debug] session_id:', session_id);
       console.log(typeof session_id);
+      const mimeType = videoFile.type;
 
       const presignRes = await fetch(
-        `${API_BASE_URL}/landmarks/presigned-url?&session_id=${session_id}`,
+        `${API_BASE_URL}/landmarks/presigned-url?session_id=${session_id}&content_type=${encodeURIComponent(
+          mimeType
+        )}`,
         {
           credentials: 'include',
         }
