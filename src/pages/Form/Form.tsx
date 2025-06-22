@@ -176,7 +176,7 @@ function Form() {
     <div className="container">
       <Header page="form" />
       <form onSubmit={handleSubmit} action="" className={styles.form}>
-        <p>You have {attempts} attempts left</p>
+        <p>You have {attempts} videos left today</p>
         <input
           className={styles.inputField}
           type="text"
@@ -194,11 +194,7 @@ function Form() {
 
         <div className={styles.container}>
           <div className={styles.animalWithTooltip}>
-            <div
-              className={styles.labelWithButton}
-              onMouseEnter={() => setShowTooltip(true)}
-              onMouseLeave={() => setShowTooltip(false)}
-            >
+            <div className={styles.labelWithButton}>
               <label htmlFor="animal">Animal type:</label>
               <button
                 type="button"
@@ -211,8 +207,7 @@ function Form() {
             </div>
             {showTooltip && (
               <div className={styles.tooltipBox} ref={tooltipRef}>
-                Select the species of the animal you are analyzing. For example,
-                "cat" or "dog".
+                Select the species of the animal you are analyzing.
               </div>
             )}
 
@@ -242,11 +237,7 @@ function Form() {
           </div>
 
           <div className={styles.sizeWrapper}>
-            <div
-              className={styles.labelWithButton}
-              onMouseEnter={() => setShowSizeTooltip(true)}
-              onMouseLeave={() => setShowSizeTooltip(false)}
-            >
+            <div className={styles.labelWithButton}>
               <label htmlFor="size">Size:</label>
               <button
                 type="button"
@@ -258,7 +249,10 @@ function Form() {
               </button>
             </div>
             {showSizeTooltip && (
-              <div className={styles.tooltipBox} ref={sizeTooltipRef}>
+              <div
+                className={`${styles.tooltipBox} ${styles.tooltipBoxSize}`}
+                ref={sizeTooltipRef}
+              >
                 Choose model size. "Small" is faster, "Large" is more accurate.
               </div>
             )}
@@ -288,11 +282,7 @@ function Form() {
         </div>
 
         <div className={styles.percentageWrapper}>
-          <div
-            className={styles.labelWithButton}
-            onMouseEnter={() => setShowPercentageTooltip(true)}
-            onMouseLeave={() => setShowPercentageTooltip(false)}
-          >
+          <div className={styles.labelWithButton}>
             <label>FPS:</label>
             <button
               type="button"
@@ -397,7 +387,11 @@ function Form() {
         </div>
 
         <div className={styles.items}>
-          <button className={styles.btn} type="submit" disabled={isSubmitting}>
+          <button
+            className={styles.btn}
+            type="submit"
+            disabled={isSubmitting || attempts === 0}
+          >
             {isSubmitting ? 'Submitting...' : 'Submit'}
           </button>
         </div>

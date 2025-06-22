@@ -10,7 +10,7 @@
 .title {
   text-align: center;
   padding: 20px;
-  margin-top: 10px;
+  margin-top: 50px;
 }
 
 .formDescription {
@@ -103,5 +103,8 @@ textarea.input {
   }
   .formDescription {
     width: 100%;
+  }
+  .title {
+    margin-top: 10px;
   }
 }

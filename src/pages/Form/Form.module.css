@@ -9,6 +9,9 @@
   padding: 20px;
   border-radius: 25px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .items {
@@ -95,6 +98,10 @@
   width: 260px;
   font-size: 0.85rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.tooltipBoxSize {
+  left: -55px;
 }
 
 .animalChoiceGroup {

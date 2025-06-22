@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Form from './pages/Form/Form';
 import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy';
-import PageNotFound from './pages/PageNotFound';
+import PageNotFound from './pages/PageNotFound/PageNotFound';
 import Results from './pages/Results/Results';
 import FooterCom from './components/FooterCom/FooterCom';
 

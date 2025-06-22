@@ -12,6 +12,8 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
   const [fileUrl, setFileUrl] = useState<string | null>(props.file);
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
   const [currentStatus, setCurrentStatus] = useState<string>(props.status);
+  const [fileKey, setFileKey] = useState<string | null>(props.file);
+  const [videoKey, setVideoKey] = useState<string | null>(props.video);
 
   // const session_id = getCookie('session_id');
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -19,7 +21,7 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
   const isTracking = currentStatus === 'tracking landmarks';
   const isDrawing = currentStatus === 'drawing landmarks';
 
-  //fetching sessions
+  //Poll session to update status and file/video keys
   useEffect(() => {
     async function pollSession() {
       console.log(`[${props.title}] Polling session/${session_id}...`);
@@ -40,24 +42,38 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
 
         if (!matchingSubmission) {
           console.warn(`[${props.title}] No matching submission found`);
-        } else {
-          console.log(
-            `[${props.title}] Found matching submission. Status:`,
-            matchingSubmission.status
-          );
-          if (matchingSubmission.status !== currentStatus) {
-            setCurrentStatus(matchingSubmission.status);
-          }
+          return;
+        }
 
-          if (
-            matchingSubmission.status === 'completed' ||
-            matchingSubmission.status === 'failed'
-          ) {
-            console.log(
-              `[${props.title}] Stopping polling — final status: ${matchingSubmission.status}`
-            );
-            clearInterval(interval);
-          }
+        console.log(
+          `[${props.title}] Found matching submission. Status:`,
+          matchingSubmission.status
+        );
+
+        // update status
+        if (matchingSubmission.status !== currentStatus) {
+          setCurrentStatus(matchingSubmission.status);
+        }
+
+        // update file/video keys if true
+        if (matchingSubmission.result_csv && !fileKey) {
+          console.log(`[${props.title}] Updating fileKey from session data`);
+          setFileKey(matchingSubmission.result_csv);
+        }
+        if (matchingSubmission.result_video && !videoKey) {
+          console.log(`[${props.title}] Updating videoKey from session data`);
+          setVideoKey(matchingSubmission.result_video);
+        }
+
+        // stop polling if status
+        if (
+          matchingSubmission.status === 'completed' ||
+          matchingSubmission.status === 'failed'
+        ) {
+          console.log(
+            `[${props.title}] Stopping polling — final status: ${matchingSubmission.status}`
+          );
+          clearInterval(interval);
         }
       } catch (err) {
         console.error(`[${props.title}] Polling error:`, err);
@@ -76,6 +92,8 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
 
   //fetch file
   useEffect(() => {
+    if (!fileKey) return;
+
     console.log(`[${props.title}] useEffect: file polling`);
     console.log(`[${props.title}] currentStatus = ${currentStatus}`);
     console.log(`[${props.title}] props.file = ${props.file}`);
@@ -104,19 +122,18 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
       }
     }
 
-    if (props.file) {
-      pollFile();
-      interval = setInterval(pollFile, 15000);
-    }
-
+    pollFile();
+    interval = setInterval(pollFile, 15000);
     return () => {
       console.log(`[${props.title}] File polling stopped`);
       clearInterval(interval);
     };
-  }, [isTracking, isDrawing, props.file, API_BASE_URL]);
+  }, [fileKey, API_BASE_URL]);
 
   //fetch video
   useEffect(() => {
+    if (!videoKey) return;
+
     console.log(`[${props.title}] useEffect: video polling`);
     console.log(`[${props.title}] currentStatus = ${currentStatus}`);
     console.log(`[${props.title}] props.video = ${props.video}`);
@@ -145,16 +162,13 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
       }
     }
 
-    if (props.video) {
-      pollVideo();
-      interval = setInterval(pollVideo, 15000);
-    }
-
+    pollVideo();
+    interval = setInterval(pollVideo, 15000);
     return () => {
       console.log(`[${props.title}] Video polling stopped`);
       clearInterval(interval);
     };
-  }, [isTracking, isDrawing, props.video, API_BASE_URL]);
+  }, [videoKey, API_BASE_URL]);
 
   return (
     <div className={styles.cardWrapper}>
@@ -178,7 +192,7 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
             Download result file
           </a>
         ) : (
-          <p className={styles.file}>Result file is not ready yet</p>
+          <p className={styles.fileNotReady}>Result file is not ready yet</p>
         )}
 
         {videoUrl ? (
@@ -191,7 +205,7 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
             Watch result video
           </a>
         ) : (
-          <p className={styles.file}>Video is not ready yet</p>
+          <p className={styles.fileNotReady}>Video is not ready yet</p>
         )}
       </div>
     </div>

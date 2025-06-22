@@ -18,6 +18,7 @@ export type ResultItem = {
 
 function Results() {
   const [items, setItems] = useState<ResultItem[]>([]);
+
   const session_id = getCookie('session_id');
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
