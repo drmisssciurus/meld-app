@@ -15,7 +15,7 @@ function Form() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const [videoRotation, setVideoRotation] = useState<number | null>(null);
+  const [videoRotation, setVideoRotation] = useState<number>(0);
   const ffprobeWorker = new FFprobeWorker();
 
   const tooltipRef = useRef<HTMLDivElement>(null);
@@ -59,11 +59,11 @@ function Form() {
           console.log(typeof rotation);
         } else {
           console.log('[rotation] No rotation tag found');
-          setVideoRotation(null);
+          setVideoRotation(0);
         }
       } catch (err) {
         console.error('[ffprobe] Failed to extract rotation:', err);
-        setVideoRotation(null);
+        setVideoRotation(0);
       }
     }
   };
