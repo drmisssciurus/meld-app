@@ -144,7 +144,7 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
       console.log(`[${props.title}] Fetching video URL...`);
       try {
         const res = await fetch(
-          `${API_BASE_URL}/landmarks/download?object_key=${fileKey}`,
+          `${API_BASE_URL}/landmarks/download?object_key=${videoKey}`,
           { credentials: 'include' }
         );
 
