@@ -136,9 +136,10 @@ function Form() {
       const uploadRes = await fetch(presignedUrl, {
         method: 'PUT',
         body: videoFile,
-        // headers: {
-        //   'Content-Type': videoFile.type,
-        // },
+        headers: {
+          'Content-Type': videoFile.type,
+          'x-amz-meta-rotation': String(videoRotation ?? 0),
+        },
       });
 
       console.log('URL:', presignedUrl);
