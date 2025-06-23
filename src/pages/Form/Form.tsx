@@ -3,6 +3,7 @@ import Header from '../../components/Header/Header';
 import styles from './Form.module.css';
 import { useNavigate } from 'react-router-dom';
 import { getCookie } from '../../utils/cookies';
+import { FFprobeWorker } from 'ffprobe-wasm';
 
 function Form() {
   const [attempts, setAttempts] = useState<number>(10);
@@ -12,6 +13,10 @@ function Form() {
   const [video, setVideo] = useState<string>('');
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [videoRotation, setVideoRotation] = useState<number | null>(null);
+  const ffprobeWorker = new FFprobeWorker();
+
   const tooltipRef = useRef<HTMLDivElement>(null);
   const percentageTooltipRef = useRef<HTMLDivElement>(null);
   const sizeTooltipRef = useRef<HTMLDivElement>(null);
@@ -23,13 +28,39 @@ function Form() {
     fileInputRef.current?.click();
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       setVideo(file.name);
       setVideoFile(file);
+
+      try {
+        const info = await ffprobeWorker.getFileInfo(file);
+        const videoStream = info.streams.find(
+          (s) => s.codec_type === 'video'
+        ) as any;
+        const rotation =
+          videoStream?.tags?.rotate ??
+          videoStream?.side_data_list?.[0]?.rotation ??
+          null;
+
+        if (rotation !== null) {
+          console.log(`[rotation] Found: ${rotation} degrees`);
+          console.log(typeof rotation);
+          setVideoRotation(Number(rotation));
+          console.log(typeof rotation);
+        } else {
+          console.log('[rotation] No rotation tag found');
+          setVideoRotation(null);
+        }
+      } catch (err) {
+        console.error('[ffprobe] Failed to extract rotation:', err);
+        setVideoRotation(null);
+      }
     }
   };
+
+  console.log('videoRotation: ', videoRotation);
 
   useEffect(() => {
     async function fetchSessionData() {
@@ -83,7 +114,7 @@ function Form() {
       const presignRes = await fetch(
         `${API_BASE_URL}/landmarks/presigned-url?session_id=${session_id}&content_type=${encodeURIComponent(
           mimeType
-        )}`,
+        )}&rotation=${videoRotation ?? 0}`,
         {
           credentials: 'include',
         }

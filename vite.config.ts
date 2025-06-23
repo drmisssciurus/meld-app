@@ -9,4 +9,10 @@ export default defineConfig(({ mode }) => ({
     assetsDir: '.', // ⚠️ положит index.js и index.css прямо в dist/
     emptyOutDir: true,
   },
+  server: {
+    headers: {
+      'Cross-Origin-Opener-Policy': 'same-origin',
+      'Cross-Origin-Embedder-Policy': 'require-corp',
+    },
+  },
 }));
