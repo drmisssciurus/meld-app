@@ -15,6 +15,8 @@ export type ResultItem = {
   file: string | null;
   video: string | null;
   status: string;
+  created_at: string | null;
+  finished_at: string | null;
 };
 
 function Results() {
@@ -40,6 +42,8 @@ function Results() {
           file: sub.result_csv,
           video: sub.result_video,
           status: sub.status,
+          created_at: sub.created_at || null,
+          finished_at: sub.finished_at || null,
         }));
 
         setItems(submissions);

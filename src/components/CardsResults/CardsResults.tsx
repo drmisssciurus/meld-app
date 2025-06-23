@@ -172,7 +172,19 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
 
   return (
     <div className={styles.cardWrapper}>
-      <h3 className={styles.title}>{props.title}</h3>
+      <div className={styles.titleTimeWrapper}>
+        <h3 className={styles.title}>{props.title}</h3>
+        {props.created_at && (
+          <p className={styles.timestamp}>
+            Created: {new Date(props.created_at).toLocaleString()}
+          </p>
+        )}
+        {props.finished_at && (
+          <p className={styles.timestamp}>
+            Finished: {new Date(props.finished_at).toLocaleString()}
+          </p>
+        )}
+      </div>
       <div className={styles.nameWrapper}>
         <p className={styles.name}>{props.animal_type}</p>
         <p className={styles.name}>{props.model}</p>
