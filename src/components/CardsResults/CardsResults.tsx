@@ -104,7 +104,7 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
       console.log(`[${props.title}] Fetching file URL...`);
       try {
         const res = await fetch(
-          `${API_BASE_URL}/landmarks/download?object_key=${props.file}`,
+          `${API_BASE_URL}/landmarks/download?object_key=${fileKey}`,
           { credentials: 'include' }
         );
 
@@ -112,7 +112,7 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
         const data = await res.json();
         console.log(`[${props.title}] File data:`, data);
 
-        if (data.url) {
+        if (data.url && !data.url.includes('null')) {
           console.log(`[${props.title}] File URL ready`);
           setFileUrl(data.url);
           clearInterval(interval);
@@ -144,7 +144,7 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
       console.log(`[${props.title}] Fetching video URL...`);
       try {
         const res = await fetch(
-          `${API_BASE_URL}/landmarks/download?object_key=${props.video}`,
+          `${API_BASE_URL}/landmarks/download?object_key=${fileKey}`,
           { credentials: 'include' }
         );
 
@@ -152,7 +152,7 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
         const data = await res.json();
         console.log(`[${props.title}] Video data:`, data);
 
-        if (data.url) {
+        if (data.url && !data.url.includes('null')) {
           console.log(`[${props.title}] Video URL ready`);
           setVideoUrl(data.url);
           clearInterval(interval);
