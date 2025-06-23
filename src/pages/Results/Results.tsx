@@ -3,6 +3,7 @@ import CardsResults from '../../components/CardsResults/CardsResults';
 import Header from '../../components/Header/Header';
 import { getCookie } from '../../utils/cookies';
 import styles from './Results.module.css';
+import { useNavigate } from 'react-router-dom';
 
 export type ResultItem = {
   id: number;
@@ -18,6 +19,7 @@ export type ResultItem = {
 
 function Results() {
   const [items, setItems] = useState<ResultItem[]>([]);
+  const navigate = useNavigate();
 
   const session_id = getCookie('session_id');
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -55,6 +57,15 @@ function Results() {
         {items.map((item) => (
           <CardsResults key={item.id} props={item} session_id={session_id} />
         ))}
+      </div>
+      <div className={styles.btnWrapper}>
+        <button
+          className={styles.btn}
+          type="button"
+          onClick={() => navigate('/form')}
+        >
+          Return to form
+        </button>
       </div>
     </div>
   );

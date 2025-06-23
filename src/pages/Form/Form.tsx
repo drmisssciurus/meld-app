@@ -13,6 +13,7 @@ function Form() {
   const [video, setVideo] = useState<string>('');
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const [videoRotation, setVideoRotation] = useState<number | null>(null);
   const ffprobeWorker = new FFprobeWorker();
@@ -31,6 +32,13 @@ function Form() {
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      if (file.size > 150 * 1024 * 1024) {
+        setErrorMessage(
+          'The file is too large. Maximum allowed size is 150 MB'
+        );
+        return;
+      }
+
       setVideo(file.name);
       setVideoFile(file);
 
@@ -91,11 +99,17 @@ function Form() {
     const use_full_weights = Number(formData.get('size')) === 1;
     const save_video = formData.get('agree1') !== 'on';
 
-    if (!videoFile) {
-      alert('Please select a video');
+    if (!fps_percent) {
+      setErrorMessage('Please select a percentage (FPS)');
+      setIsSubmitting(false);
       return;
     }
-    // const object_key = encodeURIComponent(videoFile.name);
+
+    if (!videoFile) {
+      setErrorMessage('Please select a video file');
+      setIsSubmitting(false);
+      return;
+    }
 
     const session_id = getCookie('session_id');
     console.log(session_id);
@@ -185,6 +199,8 @@ function Form() {
       navigate('/results');
     } catch (err) {
       console.error('landmarks error:', err);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -368,7 +384,6 @@ function Form() {
                 type="radio"
                 name="percentage"
                 value="100"
-                defaultChecked
               />
               <span className={styles.fakeRadio}>100%</span>
             </label>
@@ -391,7 +406,7 @@ function Form() {
             style={{ display: 'none' }}
             onChange={handleFileChange}
           />
-          {video ? <p>Selected: {video}</p> : <p>No file chosen</p>}
+          {video ? <p>{video}</p> : <p>No file chosen</p>}
         </div>
 
         <div className={styles.checkboxGroup}>
@@ -419,6 +434,11 @@ function Form() {
               Privacy Policy
             </p>
           </label>
+        </div>
+        <div>
+          {errorMessage && (
+            <div className={styles.errorMessage}>{errorMessage}*</div>
+          )}
         </div>
 
         <div className={styles.items}>

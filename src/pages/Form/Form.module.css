@@ -318,6 +318,14 @@
   transform: translate(-50%, -50%) scale(1);
 }
 
+/* error message */
+
+.errorMessage {
+  color: #ff4d4f;
+  font-weight: 500;
+  font-size: 18px;
+}
+
 /* Btn */
 
 .btn {

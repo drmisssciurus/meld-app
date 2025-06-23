@@ -6,6 +6,38 @@
   margin-bottom: 20px;
 }
 
+.btnWrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.btn {
+  cursor: pointer;
+  color: var(--color-violet);
+  font-weight: 700;
+  font-size: 18px;
+  font-family: 'Quicksand', sans-serif;
+  background-color: transparent;
+  border: 2px solid var(--color-violet);
+  padding: 10px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background-color: var(--color-violet);
+  color: var(--color-white);
+}
+
+.btn:active {
+  background-color: var(--color-dark-gray);
+  border-color: var(--color-dark-gray);
+  color: var(--color-white);
+}
+
 @media (max-width: 659px) {
   .resultsWrapper {
     grid-template-columns: 1fr;
