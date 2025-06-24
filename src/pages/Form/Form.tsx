@@ -151,7 +151,7 @@ function Form() {
         method: 'PUT',
         body: videoFile,
         headers: {
-          'Content-Type': videoFile.type,
+          'content-type': videoFile.type,
           'x-amz-meta-rotation': String(videoRotation ?? 0),
         },
       });
