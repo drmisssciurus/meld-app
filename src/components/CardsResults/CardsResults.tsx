@@ -174,7 +174,7 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
     <div className={styles.cardWrapper}>
       <div className={styles.titleTimeWrapper}>
         <h3 className={styles.title}>{props.title}</h3>
-        {props.created_at && (
+        {/* {props.created_at && (
           <p className={styles.timestamp}>
             Created: {new Date(props.created_at).toLocaleString()}
           </p>
@@ -183,7 +183,7 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
           <p className={styles.timestamp}>
             Finished: {new Date(props.finished_at).toLocaleString()}
           </p>
-        )}
+        )} */}
       </div>
       <div className={styles.nameWrapper}>
         <p className={styles.name}>{props.animal_type}</p>
@@ -193,7 +193,15 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
       <p className={styles.description}>{props.description}</p>
       <div className={styles.fileWrapper}>
         <p className={styles.status}>Status: {currentStatus}</p>
-
+        {props.created_at && (
+          <p className={styles.timestamp}>
+            Created:{' '}
+            {new Date(props.created_at).toLocaleTimeString([], {
+              hour: '2-digit',
+              minute: '2-digit',
+            })}
+          </p>
+        )}
         {fileUrl ? (
           <a
             className={styles.file}
