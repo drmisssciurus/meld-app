@@ -196,7 +196,7 @@ function CardsResults({ props, session_id }: CardsResultsProps) {
         {props.created_at && (
           <p className={styles.timestamp}>
             Created:{' '}
-            {new Date(props.created_at).toLocaleTimeString([], {
+            {new Date(props.created_at + 'Z').toLocaleTimeString([], {
               hour: '2-digit',
               minute: '2-digit',
             })}
