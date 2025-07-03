@@ -5,6 +5,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy';
 import PageNotFound from './pages/PageNotFound/PageNotFound';
 import Results from './pages/Results/Results';
 import FooterCom from './components/FooterCom/FooterCom';
+import FrequentlyQuestions from './pages/FrequentlyQuestions/FrequentlyQuestions';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/privacy_policy" element={<PrivacyPolicy />} />
           <Route path="/results" element={<Results />} />
           <Route path="*" element={<PageNotFound />} />
+          <Route path="/faq" element={<FrequentlyQuestions />} />
         </Routes>
         <FooterCom />
       </BrowserRouter>
