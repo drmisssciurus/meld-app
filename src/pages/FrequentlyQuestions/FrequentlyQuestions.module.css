@@ -35,6 +35,19 @@
   color: var(--color-light-violet);
 }
 
+.faqTitle {
+  text-align: center;
+  font-size: 22px;
+  margin: 25px 0;
+  font-weight: 600;
+}
+
+.arrow {
+  width: 20px;
+  padding-right: 20px;
+  transition: 0.2ms;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { getCookie, setCookie } from '../../utils/cookies';
 
 type HeaderProps = {
-  page: 'home' | 'form' | 'results' | 'not_found';
+  page: 'home' | 'form' | 'results' | 'not_found' | 'faq';
   sections?: {
     publications?: React.RefObject<HTMLDivElement | null>;
     people?: React.RefObject<HTMLDivElement | null>;
@@ -73,12 +73,18 @@ function Header({ page, sections }: HeaderProps) {
           },
           { label: 'People', action: () => scrollToSection('people') },
           { label: 'Contact Us', action: () => scrollToSection('contact') },
+          { label: 'FAQ', action: () => navigate('/faq') },
         ]
       : page === 'not_found'
       ? [
           { label: 'Home', action: () => navigate('/') },
           { label: 'Form', action: () => navigate('/form') },
           { label: 'See Results', action: () => navigate('/results') },
+        ]
+      : page === 'faq'
+      ? [
+          { label: 'Home', action: () => navigate('/') },
+          { label: 'Form', action: () => navigate('/form') },
         ]
       : [
           { label: 'Home', action: () => navigate('/') },
