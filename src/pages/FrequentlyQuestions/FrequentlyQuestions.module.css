@@ -36,9 +36,11 @@
 }
 
 .faqTitle {
+  width: 50%;
   text-align: center;
   font-size: 22px;
-  margin: 25px 0;
+  margin: 0 auto;
+  padding: 25px;
   font-weight: 600;
 }
 
@@ -56,5 +58,12 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (max-width: 720px) {
+  .faqTitle {
+    width: 100%;
+    padding: 15px 0;
   }
 }

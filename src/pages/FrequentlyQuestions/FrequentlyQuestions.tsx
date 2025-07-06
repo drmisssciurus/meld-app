@@ -4,12 +4,6 @@ import Header from '../../components/Header/Header';
 import upArrow from '../../assets/icons/top-arrow.svg';
 import bottomArrow from '../../assets/icons/bottom-arrow.svg';
 
-type SubItem = {
-  id: string;
-  question: string;
-  answer: string;
-};
-
 type FaqItem = {
   id: string;
   question: string;
