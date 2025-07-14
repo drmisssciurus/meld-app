@@ -82,10 +82,7 @@ function Header({ page, sections }: HeaderProps) {
           { label: 'See Results', action: () => navigate('/results') },
         ]
       : page === 'faq'
-      ? [
-          { label: 'Home', action: () => navigate('/') },
-          { label: 'Form', action: () => navigate('/form') },
-        ]
+      ? [{ label: 'Home', action: () => navigate('/') }]
       : [
           { label: 'Home', action: () => navigate('/') },
           { label: 'See Results', action: () => navigate('/results') },
@@ -124,7 +121,7 @@ function Header({ page, sections }: HeaderProps) {
               <span></span>
             </button>
           )}
-          {page === 'home' && (
+          {(page === 'home' || page === 'faq') && (
             <button className={styles.btn} onClick={handleStart}>
               Run meld
             </button>

@@ -24,10 +24,12 @@ function Publications({ sectionRef }: PublicationsProps) {
         <PublicationsItem
           name={'Dog landmark scheme'}
           autors={
-            'Martvel, G., Abele, G., Bremhorst, A., Canori, C., Farhat, N., Pedretti, G., ... & Zamansky, A. (2024).'
+            'Martvel, G., Zamansky, A., Pedretti, G., Canori, C., Shimshoni, I. & Bremhorst A. (2025).'
           }
-          articleName={'DogFLW: Dog Facial Landmarks in the Wild Dataset.'}
-          articleLink={'https://arxiv.org/abs/2405.11501'}
+          articleName={
+            'Dog facial landmarks detection and its applications for facial analysis'
+          }
+          articleLink={'https://www.nature.com/articles/s41598-025-07040-3'}
         />
         <PublicationsItem
           name={'Cat landmark scheme'}

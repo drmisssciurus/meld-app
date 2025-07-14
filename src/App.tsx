@@ -6,6 +6,7 @@ import PageNotFound from './pages/PageNotFound/PageNotFound';
 import Results from './pages/Results/Results';
 import FooterCom from './components/FooterCom/FooterCom';
 import FrequentlyQuestions from './pages/FrequentlyQuestions/FrequentlyQuestions';
+// import TestComponent from './components/TestComponent/TestComponent';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/results" element={<Results />} />
           <Route path="*" element={<PageNotFound />} />
           <Route path="/faq" element={<FrequentlyQuestions />} />
+          {/* <Route path="/test" element={<TestComponent />} /> */}
         </Routes>
         <FooterCom />
       </BrowserRouter>
