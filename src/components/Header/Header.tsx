@@ -5,11 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import { getCookie, setCookie } from '../../utils/cookies';
 
 type HeaderProps = {
-  page: 'home' | 'form' | 'results' | 'not_found' | 'faq';
+  page: 'home' | 'form' | 'results' | 'not_found' | 'faq' | 'howto';
   sections?: {
     publications?: React.RefObject<HTMLDivElement | null>;
     people?: React.RefObject<HTMLDivElement | null>;
     contact?: React.RefObject<HTMLDivElement | null>;
+    usingTheModel?: React.RefObject<HTMLDivElement | null>;
+    results?: React.RefObject<HTMLDivElement | null>;
+    landmarks?: React.RefObject<HTMLDivElement | null>;
   };
 };
 
@@ -83,9 +86,20 @@ function Header({ page, sections }: HeaderProps) {
         ]
       : page === 'faq'
       ? [{ label: 'Home', action: () => navigate('/') }]
+      : page === 'howto'
+      ? [
+          { label: 'Home', action: () => navigate('/') },
+          {
+            label: 'Using The Model',
+            action: () => scrollToSection('usingTheModel'),
+          },
+          { label: 'Results', action: () => scrollToSection('results') },
+          { label: 'Landmarks', action: () => scrollToSection('landmarks') },
+        ]
       : [
           { label: 'Home', action: () => navigate('/') },
           { label: 'See Results', action: () => navigate('/results') },
+          { label: 'How To Meld', action: () => navigate('/how_to') },
         ];
 
   return (
@@ -121,7 +135,7 @@ function Header({ page, sections }: HeaderProps) {
               <span></span>
             </button>
           )}
-          {(page === 'home' || page === 'faq') && (
+          {(page === 'home' || page === 'faq' || page === 'howto') && (
             <button className={styles.btn} onClick={handleStart}>
               Run meld
             </button>
