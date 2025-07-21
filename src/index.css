@@ -10,9 +10,9 @@
   --color-lightest-violet: #b562b0;
 }
 
-* {
+/* * {
   outline: 1px solid red;
-}
+} */
 
 a {
   text-decoration: inherit;
