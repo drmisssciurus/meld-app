@@ -149,15 +149,15 @@ function HowTo() {
               </li>
               <li className={styles.border}>Submit the form!</li>
             </ul>
-            <div className={styles.imageModel}>
-              <img src={form} alt="" />
+            <div>
+              <img className={styles.image} src={form} alt="" />
             </div>
           </div>
         </div>
         <div ref={resultsRef}>
           <h3 className={styles.titleCommon}>Results</h3>
           <div className={`${styles.wrapperCommon} ${styles.wrapperResult}`}>
-            <div className={styles.listModel}>
+            <div className={styles.listResLand}>
               <p>
                 Once you submit the model form, go to the results page. After
                 processing is complete, two buttons will appear to download the
@@ -183,15 +183,15 @@ function HowTo() {
                 </li>
               </ol>
             </div>
-            <div className={styles.imageModel}>
-              <img src={result} alt="" />
+            <div>
+              <img className={styles.image} src={result} alt="" />
             </div>
           </div>
         </div>
-        <div ref={landmarksRef}>
+        <div ref={landmarksRef} className={styles.wrapperItems}>
           <h3 className={styles.titleCommon}>Landmarks</h3>
           <div className={`${styles.wrapperCommon} ${styles.wrapperLandmark}`}>
-            <div className={styles.listModel}>
+            <div className={styles.listResLand}>
               <p>
                 All landmarks are tied to specific places on the animal’s face.
                 Each landmark is defined by two coordinates in the image’s
@@ -227,8 +227,8 @@ function HowTo() {
                 </ul>
               </div>
             </div>
-            <div className={styles.gif}>
-              <img className={styles.gifImg} src={gif} alt="" />
+            <div>
+              <img className={styles.image} src={gif} alt="" />
             </div>
           </div>
           <h3 className={`${styles.title} ${styles.docs}`}>
