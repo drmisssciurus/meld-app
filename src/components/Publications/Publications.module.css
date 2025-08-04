@@ -14,3 +14,41 @@
     margin-top: 30px;
   }
 }
+
+/*---------------swiper-----------------*/
+.sliderWrapper {
+  overflow: hidden; /* 👈 Скрывает всё за пределами */
+  padding-bottom: 60px; /* для отступа под пагинацией */
+}
+
+.swiper {
+  padding-bottom: 40px; /* место под точки пагинации */
+  overflow: visible; /* важно, чтобы не обрезало */
+}
+
+.swiper .swiper-pagination {
+  bottom: 0 !important; /* принудительно ставим вниз */
+}
+
+.slide {
+  display: flex;
+  height: 100%;
+  max-width: 350px;
+}
+
+.slideInner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.swiper-pagination-bullet {
+  background: #640d5f !important; /* или hex, например #640d5f */
+  opacity: 0.4;
+}
+
+/* Цвет активной точки */
+.swiper-pagination-bullet-active {
+  background: #640d5f !important; /* или другой */
+  opacity: 1;
+}

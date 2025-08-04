@@ -1,12 +1,20 @@
 .wrapper {
-  padding: 20px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 25px;
-
+  flex: 1; /* растягивается по родителю */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 10px;
+  padding: 20px;
+  border: 0.5px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+
+  min-height: 170px; /* добавь если всё равно не выравнивается */
+}
+
+@media (max-width: 660px) {
+  .wrapper {
+    min-height: 210px;
+  }
 }
 
 .name {

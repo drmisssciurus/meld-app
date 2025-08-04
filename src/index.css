@@ -78,3 +78,14 @@ p {
   justify-content: space-between;
   min-height: 100vh;
 }
+
+.swiper-pagination-bullet {
+  background: var(--color-violet) !important;
+  opacity: 0.4;
+}
+
+/* Цвет активной точки */
+.swiper-pagination-bullet-active {
+  background: var(--color-lightest-violet) !important;
+  opacity: 1;
+}
