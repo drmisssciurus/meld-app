@@ -44,7 +44,7 @@ function OurTeam({ sectionRef }: OurTeamProps) {
           image={ephantusImg}
           name={'Ephantus Kanyugi'}
           title={'Data Manager'}
-          site={'https://datalabelers.org/'}
+          site={'https://www.datafana.com/'}
         />
       </div>
       <h2 className={styles.title}>Advisors</h2>
