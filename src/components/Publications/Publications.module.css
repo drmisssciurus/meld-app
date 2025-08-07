@@ -17,17 +17,16 @@
 
 /*---------------swiper-----------------*/
 .sliderWrapper {
-  overflow: hidden; /* 👈 Скрывает всё за пределами */
-  padding-bottom: 60px; /* для отступа под пагинацией */
+  overflow: hidden;
 }
 
 .swiper {
-  padding-bottom: 40px; /* место под точки пагинации */
-  overflow: visible; /* важно, чтобы не обрезало */
+  padding-bottom: 40px;
+  overflow: visible;
 }
 
 .swiper .swiper-pagination {
-  bottom: 0 !important; /* принудительно ставим вниз */
+  bottom: 0 !important;
 }
 
 .slide {
@@ -43,12 +42,11 @@
 }
 
 .swiper-pagination-bullet {
-  background: #640d5f !important; /* или hex, например #640d5f */
+  background: #640d5f !important;
   opacity: 0.4;
 }
 
-/* Цвет активной точки */
 .swiper-pagination-bullet-active {
-  background: #640d5f !important; /* или другой */
+  background: #640d5f !important;
   opacity: 1;
 }

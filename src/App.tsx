@@ -7,7 +7,7 @@ import Results from './pages/Results/Results';
 import FooterCom from './components/FooterCom/FooterCom';
 import FrequentlyQuestions from './pages/FrequentlyQuestions/FrequentlyQuestions';
 import HowTo from './pages/HowTo/HowTo';
-import TestComponent from './components/TestComponent/TestComponent';
+// import TestComponent from './components/TestComponent/TestComponent';
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
           <Route path="*" element={<PageNotFound />} />
           <Route path="/faq" element={<FrequentlyQuestions />} />
           <Route path="/how_to" element={<HowTo />} />
-          <Route path="/test" element={<TestComponent />} />
+          {/* <Route path="/test" element={<TestComponent />} /> */}
         </Routes>
         <FooterCom />
       </BrowserRouter>
