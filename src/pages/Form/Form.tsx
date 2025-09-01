@@ -396,17 +396,17 @@ function Form() {
             onClick={handleFileButtonClick}
             className={styles.videoUpload}
           >
-            Choose Video
+            Choose File
           </button>
           <input
             type="file"
-            accept="video/*"
+            accept="image/*,video/*"
             name="upload"
             ref={fileInputRef}
             style={{ display: 'none' }}
             onChange={handleFileChange}
           />
-          {video ? <p>{video}</p> : <p>No video chosen</p>}
+          {video ? <p>{video}</p> : <p>No file chosen</p>}
         </div>
 
         <div className={styles.checkboxGroup}>
