@@ -1,5 +1,6 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import Home from './pages/Home/Home';
+import Landmarks from './pages/Landmarks/Landmarks';
 import Form from './pages/Form/Form';
 import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy';
 import PageNotFound from './pages/PageNotFound/PageNotFound';
@@ -7,23 +8,36 @@ import Results from './pages/Results/Results';
 import FooterCom from './components/FooterCom/FooterCom';
 import FrequentlyQuestions from './pages/FrequentlyQuestions/FrequentlyQuestions';
 import HowTo from './pages/HowTo/HowTo';
-// import TestComponent from './components/TestComponent/TestComponent';
+import { Fragment } from 'react';
+
+// Вынесем футер в отдельный компонент, чтобы можно было использовать useLocation
+function LayoutWithFooter() {
+  const location = useLocation();
+  const hideFooter = location.pathname === '/'; // футер скрыт только на home
+
+  return (
+    <Fragment>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/landmarks" element={<Landmarks />} />
+        <Route path="/form" element={<Form />} />
+        <Route path="/privacy_policy" element={<PrivacyPolicy />} />
+        <Route path="/results" element={<Results />} />
+        <Route path="/faq" element={<FrequentlyQuestions />} />
+        <Route path="/how_to" element={<HowTo />} />
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+
+      {!hideFooter && <FooterCom />}
+    </Fragment>
+  );
+}
 
 function App() {
   return (
     <div className="layout">
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/form" element={<Form />} />
-          <Route path="/privacy_policy" element={<PrivacyPolicy />} />
-          <Route path="/results" element={<Results />} />
-          <Route path="*" element={<PageNotFound />} />
-          <Route path="/faq" element={<FrequentlyQuestions />} />
-          <Route path="/how_to" element={<HowTo />} />
-          {/* <Route path="/test" element={<TestComponent />} /> */}
-        </Routes>
-        <FooterCom />
+        <LayoutWithFooter />
       </BrowserRouter>
     </div>
   );

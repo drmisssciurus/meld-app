@@ -5,7 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import { getCookie, setCookie } from '../../utils/cookies';
 
 type HeaderProps = {
-  page: 'home' | 'form' | 'results' | 'not_found' | 'faq' | 'howto';
+  page:
+    | 'home'
+    | 'landmarks'
+    | 'form'
+    | 'results'
+    | 'not_found'
+    | 'faq'
+    | 'howto';
   sections?: {
     publications?: React.RefObject<HTMLDivElement | null>;
     people?: React.RefObject<HTMLDivElement | null>;
@@ -68,6 +75,11 @@ function Header({ page, sections }: HeaderProps) {
 
   const navItems =
     page === 'home'
+      ? [
+          { label: 'Home', action: () => navigate('/') },
+          { label: 'Landmarks', action: () => navigate('/landmarks') },
+        ]
+      : page === 'landmarks'
       ? [
           { label: 'Home', action: () => navigate('/') },
           {
@@ -135,7 +147,7 @@ function Header({ page, sections }: HeaderProps) {
               <span></span>
             </button>
           )}
-          {(page === 'home' || page === 'faq' || page === 'howto') && (
+          {(page === 'landmarks' || page === 'faq' || page === 'howto') && (
             <button className={styles.btn} onClick={handleStart}>
               Run meld
             </button>
