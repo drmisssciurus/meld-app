@@ -42,12 +42,13 @@ function Banner() {
         <br /> Landmark Detector
       </h2>
       <p className={styles.text}>
-        Multi-animal Ensemble Landmark Detector (MELD) is an AI-driven tool for
-        accurately detecting and tracking animal facial landmarks. Currently, it
-        supports cats' and dogs' facial landmark schemas grounded in AnimalFACS.
+        Multi-animal Ensemble Landmark Detector (MELD/LM) is an AI-driven tool
+        for accurately detecting and tracking animal facial landmarks.
+        Currently, it supports cats' and dogs' facial landmark schemas grounded
+        in AnimalFACS.
       </p>
       <p className={styles.text}>
-        You can use MELD to detect facial landmarks on videos in your browser
+        You can use MELD/LM to detect facial landmarks on videos in your browser
         with no additional installments needed!
       </p>
       <button className={styles.btnTry} onClick={handleStart}>

@@ -1,3 +1,48 @@
+.landmarksWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.landmarks {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  position: relative;
+  cursor: pointer;
+  color: var(--color-black);
+  text-decoration: none;
+  padding: 5px 0;
+  transition: color 0.3s ease;
+  width: fit-content; /* ограничивает по ширине текста */
+  text-align: center;
+}
+
+.landmarks::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-black);
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+.landmarks:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+.landmarks.active::after {
+  width: 100%;
+  left: 0;
+}
+
+.landmarks.active {
+  color: var(--color-black);
+}
+
 .homeRoot {
   position: relative;
   min-width: 100vw;
@@ -15,6 +60,7 @@
   );
 
   margin: 0;
+  padding-inline: 0;
 }
 
 .wrapper {
@@ -25,12 +71,12 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: 70px;
+  gap: 25px;
   padding: 20px 0;
 }
 
 .logo {
-  width: 30%;
+  width: 20%;
   height: auto;
 }
 
@@ -46,12 +92,14 @@
 
 .inputWrap {
   position: relative;
+  width: 50%;
 }
 
 .mailInput {
   width: 100%;
   border-radius: 14px;
   background: var(--color-white);
+  opacity: 0.6;
   border: none;
   outline: none;
   background-color: var(--color-lightest-violet);
@@ -76,19 +124,81 @@
   font-size: clamp(0.75rem, 0.422rem + 1.25vw, 1.375rem);
 }
 
+/* .mailInput {
+  width: 240px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.13);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(100, 100, 100, 0.5),
+    inset 0 -1px 0 rgba(100, 100, 100, 0.1),
+    inset 0 0 8px 4px rgba(100, 100, 100, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.mailInput::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.8),
+    transparent
+  );
+}
+
+.mailInput::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.8),
+    transparent,
+    rgba(255, 255, 255, 0.3)
+  );
+} */
+
 .submBtn {
   position: absolute;
   top: 5px;
-  right: 4px;
+  right: 6px;
   padding: 7px 18px;
   border: none;
-  border-radius: 14px;
+  border-radius: 10px;
   background: var(--color-violet);
   color: var(--color-white);
   font-weight: 200;
   font-size: clamp(0.75rem, 0.422rem + 1.25vw, 1.375rem);
   cursor: pointer;
   font-family: 'Poppins', sans-serif;
+  outline: none;
+}
+
+.submBtn:focus {
+  border-color: var(--color-violet);
+  box-shadow: rgba(100, 13, 95, 0.5) 0 0 3px 2px;
+  opacity: 0.6;
+}
+
+.submBtn:hover {
+  opacity: 0.8;
+}
+
+.submBtn:active {
+  outline: none;
+  opacity: 0.3;
 }
 
 @media (max-width: 660px) {
@@ -100,5 +210,8 @@
   }
   .wrapper {
     gap: 30px;
+  }
+  .submBtn {
+    top: 6px;
   }
 }

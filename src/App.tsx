@@ -35,7 +35,7 @@ function LayoutWithFooter() {
 
 function App() {
   return (
-    <div className="layout">
+    <div>
       <BrowserRouter>
         <LayoutWithFooter />
       </BrowserRouter>

@@ -38,6 +38,7 @@
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  padding-inline: 8px;
 }
 
 .inputNameWrapper {
@@ -52,7 +53,7 @@
 }
 
 .input {
-  width: 100%;
+  width: 98%;
   border: none;
   border-bottom: 1px solid #b5b3b3;
   font-family: 'Poppins', sans-serif;
@@ -100,6 +101,7 @@ textarea.input {
   }
   .form {
     width: 100%;
+    padding-inline: 0;
   }
   .formDescription {
     width: 100%;

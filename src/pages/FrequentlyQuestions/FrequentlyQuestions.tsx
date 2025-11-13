@@ -14,25 +14,25 @@ type FaqItem = {
 const faqData: FaqItem[] = [
   {
     id: 'q1',
-    question: 'What is MELD?',
+    question: 'What is MELD/LM?',
     answer:
-      'MELD (short for Multi‑animal Ensemble Landmark Detector) is an AI-driven tool that automatically detects facial landmarks on animals in videos. In simpler terms, it can identify locations of key facial features (like eyes, ears, snout, etc.) on animals and track their movements over time.',
+      'MELD/LM (short for Multi‑animal Ensemble Landmark Detector) is an AI-driven tool that automatically detects facial landmarks on animals in videos. In simpler terms, it can identify locations of key facial features (like eyes, ears, snout, etc.) on animals and track their movements over time.',
   },
   {
     id: 'q2',
-    question: 'Can I use MELD in my research?',
+    question: 'Can I use MELD/LM in my research?',
     answer:
-      'Yes! The platform is designed specifically for research use. Make sure to cite corresponding papers when publishing results produced by MELD.',
+      'Yes! The platform is designed specifically for research use. Make sure to cite corresponding papers when publishing results produced by MELD/LM.',
   },
   {
     id: 'q3',
-    question: 'Can I use MELD for commercial purposes?',
+    question: 'Can I use MELD/LM for commercial purposes?',
     answer:
-      'MELD is free for use for scientific purposes. For its use for commercial purposes, please contact Tech4Animals Lab to get a quote.',
+      'MELD/LM is free for use for scientific purposes. For its use for commercial purposes, please contact Tech4Animals Lab to get a quote.',
   },
   {
     id: 'q4',
-    question: 'Which animal species does MELD currently support?',
+    question: 'Which animal species does MELD/LM currently support?',
     answer:
       'Cats and dogs, but the support for additional species is on the roadmap. If you want to create a facial landmark schema for your favourite pet snake, contact us.',
   },
@@ -51,52 +51,52 @@ const faqData: FaqItem[] = [
   {
     id: 'q7',
     question:
-      'Does MELD detect emotions or pain in the animal from its facial expressions?',
+      'Does MELD/LM detect emotions or pain in the animal from its facial expressions?',
     answer:
-      'No – MELD does not output any labels, just objective landmark positions and their movements over time. Using these landmarks for any type of emotion or pain recognition is out of scope of this platform.',
+      'No – MELD/LM does not output any labels, just objective landmark positions and their movements over time. Using these landmarks for any type of emotion or pain recognition is out of scope of this platform.',
   },
   {
     id: 'q8',
-    question: 'How long does it take to analyse a video with MELD?',
+    question: 'How long does it take to analyse a video with MELD/LM?',
     answer:
       'Analysis time can vary depending on several factors: the length of the video, the video resolution/quality/angle, the number of animals in it, request settings, and the server load. Usually, short videos are done within minutes, and long ones within one or two hours, depending on the model.',
   },
   {
     id: 'q9',
     question:
-      'Why is the number of requests limited? Can I process more videos with MELD?',
+      'Why is the number of requests limited? Can I process more videos with MELD/LM?',
     answer:
       'We continually balance the efficiency and payload of the platform If you need to process a large number of videos, please contact Tech4Animals for help with the contact us form.',
   },
   {
     id: 'q10',
-    question: 'Are my videos and data secure when using MELD? ',
+    question: 'Are my videos and data secure when using MELD/LM? ',
     answer:
       'Yes. Uploads are stored temporarily in secure cloud storage only for the duration of analysis and for a few extra hours so you can download them. We do not use, publish or share your videos unless you explicitly allow it.',
   },
   {
     id: 'q11',
-    question: 'Will my data be used to train MELD’s models?',
+    question: 'Will my data be used to train MELD/LM’s models?',
     answer:
       'We could use the metadata you input when uploading the video and output landmark data. We will not use videos unless you explicitly agree to it.',
   },
   {
     id: 'title1',
     question:
-      'I uploaded a video, but MELD didn’t detect any landmarks. What could be wrong?',
+      'I uploaded a video, but MELD/LM didn’t detect any landmarks. What could be wrong?',
     isTitle: true,
   },
   {
     id: 'q12-1',
     question: 'Unsupported Species',
     answer:
-      'MELD currently supports only cats or dogs. Faces of other animals, like horses or primates, won’t be recognised, leading to no detection or inconsistent results.',
+      'MELD/LM currently supports only cats or dogs. Faces of other animals, like horses or primates, won’t be recognised, leading to no detection or inconsistent results.',
   },
   {
     id: 'q12-2',
     question: 'Face Not Visible',
     answer:
-      'MELD needs a clear view of the face. If the face is turned away, blocked, or partially off-frame, detection fails. Use footage where the animal is mostly looking directly at the camera.',
+      'MELD/LM needs a clear view of the face. If the face is turned away, blocked, or partially off-frame, detection fails. Use footage where the animal is mostly looking directly at the camera.',
   },
   {
     id: 'q12-3',
@@ -108,13 +108,13 @@ const faqData: FaqItem[] = [
     id: 'q12-4',
     question: 'Incorrect Settings',
     answer:
-      'Ensure the correct species model is selected in MELD. Using the wrong model can cause failure.',
+      'Ensure the correct species model is selected in MELD/LM. Using the wrong model can cause failure.',
   },
   {
     id: 'q12-5',
     question: 'Multiple Animals Confusion',
     answer:
-      'Clumped animals or overlapping faces may confuse MELD. Try to isolate one to three animals per clip.',
+      'Clumped animals or overlapping faces may confuse MELD/LM. Try to isolate one to three animals per clip.',
   },
   {
     id: 'q12-6',

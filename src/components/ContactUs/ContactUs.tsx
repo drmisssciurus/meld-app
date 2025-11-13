@@ -66,10 +66,10 @@ function ContactUs({ sectionRef }: ContactUsProps) {
     <div ref={sectionRef}>
       <h2 className={styles.title}>Contact Us</h2>
       <p className={styles.formDescription}>
-        MELD offers ready-to-use multi-species landmark detection models that
-        work on new videos without manual labeling or extra setup. We welcome
-        your feedback and data—both help improve our models and expand support
-        for more species. Let us know if you’re using MELD or want to
+        Our team offers ready-to-use multi-species landmark detection models
+        that work on new videos without manual labeling or extra setup. We
+        welcome your feedback and data—both help improve our models and expand
+        support for more species. Let us know if you’re using MELD/LM or want to
         contribute!
       </p>
       <div className={styles.contactUs}>

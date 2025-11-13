@@ -18,6 +18,7 @@
 /*---------------swiper-----------------*/
 .sliderWrapper {
   overflow: hidden;
+  padding-inline: 8px;
 }
 
 .swiper {

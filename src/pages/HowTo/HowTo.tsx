@@ -79,7 +79,7 @@ write_csv(df_out, "your_file_processed.csv")
 function HowTo() {
   const usingTheModelRef = useRef<HTMLDivElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
-  const landmarksRef = useRef<HTMLDivElement>(null);
+  const schemaRef = useRef<HTMLDivElement>(null);
   const [copied, setCopied] = useState<string | null>(null);
 
   function handleCopy(code: string, id: string) {
@@ -96,10 +96,10 @@ function HowTo() {
         sections={{
           usingTheModel: usingTheModelRef,
           results: resultsRef,
-          landmarks: landmarksRef,
+          schema: schemaRef,
         }}
       />
-      <h2 className={styles.title}>MELD - How to</h2>
+      <h2 className={styles.title}>MELD/LM - How to</h2>
       <div className={styles.wrapper}>
         <div ref={usingTheModelRef} className={styles.wrapperItems}>
           <h3 className={styles.titleCommon}>Using the Model </h3>
@@ -188,8 +188,8 @@ function HowTo() {
             </div>
           </div>
         </div>
-        <div ref={landmarksRef} className={styles.wrapperItems}>
-          <h3 className={styles.titleCommon}>Landmarks</h3>
+        <div ref={schemaRef} className={styles.wrapperItems}>
+          <h3 className={styles.titleCommon}>Schema</h3>
           <div className={`${styles.wrapperCommon} ${styles.wrapperLandmark}`}>
             <div className={styles.listResLand}>
               <p>
@@ -235,7 +235,7 @@ function HowTo() {
             You can interact with the output file in the following way:
           </h3>
 
-          <p>For Python:</p>
+          <p className={styles.codeName}>For Python:</p>
           <div className={styles.codeBlock}>
             <div className={styles.copyWrapper}>
               <button
@@ -253,7 +253,7 @@ function HowTo() {
               {codeStrPython}
             </SyntaxHighlighter>
           </div>
-          <p>For R:</p>
+          <p className={styles.codeName}>For R:</p>
           <div className={styles.codeBlock}>
             <div className={styles.copyWrapper}>
               <button

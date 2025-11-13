@@ -19,13 +19,17 @@ type HeaderProps = {
     contact?: React.RefObject<HTMLDivElement | null>;
     usingTheModel?: React.RefObject<HTMLDivElement | null>;
     results?: React.RefObject<HTMLDivElement | null>;
-    landmarks?: React.RefObject<HTMLDivElement | null>;
+    schema?: React.RefObject<HTMLDivElement | null>;
   };
 };
 
+const MOBILE_BREAKPOINT = 941;
+
 function Header({ page, sections }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 660);
+  const [isMobile, setIsMobile] = useState(
+    window.innerWidth < MOBILE_BREAKPOINT
+  );
   const navigate = useNavigate();
 
   const url = import.meta.env.VITE_API_BASE_URL;
@@ -61,8 +65,8 @@ function Header({ page, sections }: HeaderProps) {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 660);
-      if (window.innerWidth >= 660) setMenuOpen(false);
+      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+      if (window.innerWidth >= MOBILE_BREAKPOINT) setMenuOpen(false);
     };
 
     window.addEventListener('resize', handleResize);
@@ -81,7 +85,8 @@ function Header({ page, sections }: HeaderProps) {
         ]
       : page === 'landmarks'
       ? [
-          { label: 'Home', action: () => navigate('/') },
+          { label: 'Main Page', action: () => navigate('/') },
+          { label: 'Landmarks', action: () => navigate('/landmarks') },
           {
             label: 'Publications',
             action: () => scrollToSection('publications'),
@@ -92,24 +97,26 @@ function Header({ page, sections }: HeaderProps) {
         ]
       : page === 'not_found'
       ? [
-          { label: 'Home', action: () => navigate('/') },
+          { label: 'Landmarks', action: () => navigate('/landmarks') },
           { label: 'Form', action: () => navigate('/form') },
           { label: 'See Results', action: () => navigate('/results') },
         ]
       : page === 'faq'
-      ? [{ label: 'Home', action: () => navigate('/') }]
+      ? [{ label: 'Landmarks', action: () => navigate('/landmarks') }]
       : page === 'howto'
       ? [
-          { label: 'Home', action: () => navigate('/') },
+          { label: 'Landmarks', action: () => navigate('/landmarks') },
+
           {
             label: 'Using The Model',
             action: () => scrollToSection('usingTheModel'),
           },
           { label: 'Results', action: () => scrollToSection('results') },
-          { label: 'Landmarks', action: () => scrollToSection('landmarks') },
+          { label: 'Schema', action: () => scrollToSection('schema') },
         ]
       : [
-          { label: 'Home', action: () => navigate('/') },
+          { label: 'Landmarks', action: () => navigate('/landmarks') },
+
           { label: 'See Results', action: () => navigate('/results') },
           { label: 'How To Meld', action: () => navigate('/how_to') },
         ];

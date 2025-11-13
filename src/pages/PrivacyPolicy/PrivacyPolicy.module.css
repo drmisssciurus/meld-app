@@ -1,3 +1,7 @@
+.policyWrapper {
+  padding: 8px;
+}
+
 .titleWrapper {
   display: flex;
   align-items: center;
