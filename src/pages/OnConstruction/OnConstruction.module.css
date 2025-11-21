@@ -1,0 +1,16 @@
+.wrapper {
+  height: calc(100vh - 250px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.gif {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}

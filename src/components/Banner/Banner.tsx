@@ -51,7 +51,11 @@ function Banner() {
         You can use MELD/LM to detect facial landmarks on videos in your browser
         with no additional installments needed!
       </p>
-      <button className={styles.btnTry} onClick={handleStart}>
+      {/* <button className={styles.btnTry} onClick={handleStart}> */}
+      <button
+        className={styles.btnTry}
+        onClick={() => navigate('/construction')}
+      >
         Try now!
       </button>
     </div>

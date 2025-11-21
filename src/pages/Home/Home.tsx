@@ -11,22 +11,27 @@ function Home() {
 
   const handleSubmit = async () => {
     if (!email) {
-      alert('Please enter your email');
       return;
     }
 
-    setLoading(true);
+    const payload = {
+      first_name: 'Waitlist user',
+      last_name: 'Homepage',
+      email,
+      message: 'User wants to join waitlist from homepage',
+    };
 
-    const formData = new FormData();
-    formData.append('name', 'Waitlist user');
-    formData.append('lastname', 'Homepage');
-    formData.append('email', email);
-    formData.append('message', 'User wants to join waitlist from homepage');
+    console.log('payload', payload);
+
+    setLoading(true);
 
     try {
       const res = await fetch(`${API_BASE_URL}/feedback/`, {
         method: 'POST',
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
       });
 
       if (!res.ok) {
@@ -36,6 +41,7 @@ function Home() {
       alert('Thank you! You have joined the waitlist.');
       setEmail('');
     } catch (err) {
+      console.log(err);
       console.error(err);
       alert('Something went wrong. Try again later.');
     } finally {

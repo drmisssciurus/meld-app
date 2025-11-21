@@ -226,231 +226,234 @@ function Form() {
   return (
     <div className="container">
       <Header page="form" />
-      <form onSubmit={handleSubmit} action="" className={styles.form}>
-        <p>You have {attempts} videos left today</p>
-        <input
-          className={styles.inputField}
-          type="text"
-          id="title"
-          name="title"
-          placeholder="Title"
-        />
+      <div className={styles.wrapper}>
+        <form onSubmit={handleSubmit} action="" className={styles.form}>
+          <p>You have {attempts} videos left today</p>
+          <input
+            className={styles.inputField}
+            type="text"
+            id="title"
+            name="title"
+            placeholder="Title"
+          />
 
-        <textarea
-          className={`${styles.inputField} ${styles.inputFieldTextarea}`}
-          id="description"
-          name="description"
-          placeholder="Description example: A Sphynx cat cuddles under a warm blanket beside a crackling fireplace, enjoying the warmth and comfort of its environment."
-        />
+          <textarea
+            className={`${styles.inputField} ${styles.inputFieldTextarea}`}
+            id="description"
+            name="description"
+            placeholder="Description example: A Sphynx cat cuddles under a warm blanket beside a crackling fireplace, enjoying the warmth and comfort of its environment."
+          />
 
-        <div className={styles.container}>
-          <div className={styles.animalWithTooltip}>
-            <div className={styles.labelWithButton}>
-              <label htmlFor="animal">Animal type:</label>
-              <button
-                type="button"
-                className={styles.tooltipButton}
-                onClick={() => setShowTooltip((prev) => !prev)} // работает на мобилке
-                aria-label="More info about animal type"
-              >
-                ?
-              </button>
-            </div>
-            {showTooltip && (
-              <div className={styles.tooltipBox} ref={tooltipRef}>
-                Select the species of the animal you are analyzing.
+          <div className={styles.container}>
+            <div className={styles.animalWithTooltip}>
+              <div className={styles.labelWithButton}>
+                <label htmlFor="animal">Animal type:</label>
+                <button
+                  type="button"
+                  className={styles.tooltipButton}
+                  onClick={() => setShowTooltip((prev) => !prev)} // работает на мобилке
+                  aria-label="More info about animal type"
+                >
+                  ?
+                </button>
               </div>
-            )}
+              {showTooltip && (
+                <div className={styles.tooltipBox} ref={tooltipRef}>
+                  Select the species of the animal you are analyzing.
+                </div>
+              )}
 
-            <div className={styles.animalChoiceWrapper}>
+              <div className={styles.animalChoiceWrapper}>
+                <div className={styles.animalChoiceGroup}>
+                  <label className={styles.animalChoiceLabel}>
+                    <input
+                      type="radio"
+                      name="animal"
+                      value="dog"
+                      defaultChecked
+                      className={styles.animalChoiceInput}
+                    />
+                    <span className={styles.animalChoiceSpan}>Dog</span>
+                  </label>
+                  <label className={styles.animalChoiceLabel}>
+                    <input
+                      type="radio"
+                      name="animal"
+                      value="cat"
+                      className={styles.animalChoiceInput}
+                    />
+                    <span className={styles.animalChoiceSpan}>Cat</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div className={styles.sizeWrapper}>
+              <div className={styles.labelWithButton}>
+                <label htmlFor="size">Size:</label>
+                <button
+                  type="button"
+                  className={styles.tooltipButton}
+                  onClick={() => setShowSizeTooltip((prev) => !prev)}
+                  aria-label="More info about size"
+                >
+                  ?
+                </button>
+              </div>
+              {showSizeTooltip && (
+                <div
+                  className={`${styles.tooltipBox} ${styles.tooltipBoxSize}`}
+                  ref={sizeTooltipRef}
+                >
+                  Choose model size. "Small" is faster, "Large" is more
+                  accurate.
+                </div>
+              )}
+
               <div className={styles.animalChoiceGroup}>
                 <label className={styles.animalChoiceLabel}>
                   <input
                     type="radio"
-                    name="animal"
-                    value="dog"
+                    name="size"
+                    value="0"
                     defaultChecked
                     className={styles.animalChoiceInput}
                   />
-                  <span className={styles.animalChoiceSpan}>Dog</span>
+                  <span className={styles.animalChoiceSpan}>Small</span>
                 </label>
                 <label className={styles.animalChoiceLabel}>
                   <input
                     type="radio"
-                    name="animal"
-                    value="cat"
+                    name="size"
+                    value="1"
                     className={styles.animalChoiceInput}
                   />
-                  <span className={styles.animalChoiceSpan}>Cat</span>
+                  <span className={styles.animalChoiceSpan}>Large</span>
                 </label>
               </div>
             </div>
           </div>
 
-          <div className={styles.sizeWrapper}>
+          <div className={styles.percentageWrapper}>
             <div className={styles.labelWithButton}>
-              <label htmlFor="size">Size:</label>
+              <label>FPS:</label>
               <button
                 type="button"
                 className={styles.tooltipButton}
-                onClick={() => setShowSizeTooltip((prev) => !prev)}
-                aria-label="More info about size"
+                onClick={() => setShowPercentageTooltip((prev) => !prev)}
+                aria-label="More info about percentage"
               >
                 ?
               </button>
             </div>
-            {showSizeTooltip && (
-              <div
-                className={`${styles.tooltipBox} ${styles.tooltipBoxSize}`}
-                ref={sizeTooltipRef}
-              >
-                Choose model size. "Small" is faster, "Large" is more accurate.
+            {showPercentageTooltip && (
+              <div className={styles.tooltipBox} ref={percentageTooltipRef}>
+                Select the percentage of frames to sample from the video (e.g.,
+                25% = every fourth frame).
               </div>
             )}
-
-            <div className={styles.animalChoiceGroup}>
-              <label className={styles.animalChoiceLabel}>
+            <div className={styles.radioContainer}>
+              <label className={styles.radioPersentage}>
                 <input
+                  className={styles.radioPersentageInput}
                   type="radio"
-                  name="size"
-                  value="0"
-                  defaultChecked
-                  className={styles.animalChoiceInput}
+                  name="percentage"
+                  value="25"
                 />
-                <span className={styles.animalChoiceSpan}>Small</span>
+                <span className={styles.fakeRadio}>25%</span>
               </label>
-              <label className={styles.animalChoiceLabel}>
+              <label className={styles.radioPersentage}>
                 <input
+                  className={styles.radioPersentageInput}
                   type="radio"
-                  name="size"
-                  value="1"
-                  className={styles.animalChoiceInput}
+                  name="percentage"
+                  value="50"
                 />
-                <span className={styles.animalChoiceSpan}>Large</span>
+                <span className={styles.fakeRadio}>50%</span>
+              </label>
+              <label className={styles.radioPersentage}>
+                <input
+                  className={styles.radioPersentageInput}
+                  type="radio"
+                  name="percentage"
+                  value="75"
+                />
+                <span className={styles.fakeRadio}>75%</span>
+              </label>
+              <label className={styles.radioPersentage}>
+                <input
+                  className={styles.radioPersentageInput}
+                  type="radio"
+                  name="percentage"
+                  value="100"
+                />
+                <span className={styles.fakeRadio}>100%</span>
               </label>
             </div>
           </div>
-        </div>
 
-        <div className={styles.percentageWrapper}>
-          <div className={styles.labelWithButton}>
-            <label>FPS:</label>
+          <div className={styles.videoInput}>
             <button
               type="button"
-              className={styles.tooltipButton}
-              onClick={() => setShowPercentageTooltip((prev) => !prev)}
-              aria-label="More info about percentage"
+              onClick={handleFileButtonClick}
+              className={styles.videoUpload}
             >
-              ?
+              Choose File
+            </button>
+            <input
+              type="file"
+              accept="image/*,video/*"
+              name="upload"
+              ref={fileInputRef}
+              style={{ display: 'none' }}
+              onChange={handleFileChange}
+            />
+            {video ? <p>{video}</p> : <p>No file chosen</p>}
+          </div>
+
+          <div className={styles.checkboxGroup}>
+            <label className={styles.checkboxLabel}>
+              <input
+                type="checkbox"
+                name="agree1"
+                className={styles.checkboxInput}
+              />
+              <p className={styles.agreement}>
+                I don’t want my video to be used for scientific purposes.
+              </p>
+            </label>
+            <label className={styles.checkboxLabel}>
+              <input
+                type="checkbox"
+                name="agree2"
+                className={styles.checkboxInput}
+              />
+              <p>I Agree To </p>
+              <p
+                className={styles.privacy}
+                onClick={() => navigate('/privacy_policy')}
+              >
+                Privacy Policy
+              </p>
+            </label>
+          </div>
+          <div>
+            {errorMessage && (
+              <div className={styles.errorMessage}>{errorMessage}*</div>
+            )}
+          </div>
+
+          <div className={styles.items}>
+            <button
+              className={styles.btn}
+              type="submit"
+              disabled={isSubmitting || attempts === 0}
+            >
+              {isSubmitting ? 'Submitting...' : 'Submit'}
             </button>
           </div>
-          {showPercentageTooltip && (
-            <div className={styles.tooltipBox} ref={percentageTooltipRef}>
-              Select the percentage of frames to sample from the video (e.g.,
-              25% = every fourth frame).
-            </div>
-          )}
-          <div className={styles.radioContainer}>
-            <label className={styles.radioPersentage}>
-              <input
-                className={styles.radioPersentageInput}
-                type="radio"
-                name="percentage"
-                value="25"
-              />
-              <span className={styles.fakeRadio}>25%</span>
-            </label>
-            <label className={styles.radioPersentage}>
-              <input
-                className={styles.radioPersentageInput}
-                type="radio"
-                name="percentage"
-                value="50"
-              />
-              <span className={styles.fakeRadio}>50%</span>
-            </label>
-            <label className={styles.radioPersentage}>
-              <input
-                className={styles.radioPersentageInput}
-                type="radio"
-                name="percentage"
-                value="75"
-              />
-              <span className={styles.fakeRadio}>75%</span>
-            </label>
-            <label className={styles.radioPersentage}>
-              <input
-                className={styles.radioPersentageInput}
-                type="radio"
-                name="percentage"
-                value="100"
-              />
-              <span className={styles.fakeRadio}>100%</span>
-            </label>
-          </div>
-        </div>
-
-        <div className={styles.videoInput}>
-          <button
-            type="button"
-            onClick={handleFileButtonClick}
-            className={styles.videoUpload}
-          >
-            Choose File
-          </button>
-          <input
-            type="file"
-            accept="image/*,video/*"
-            name="upload"
-            ref={fileInputRef}
-            style={{ display: 'none' }}
-            onChange={handleFileChange}
-          />
-          {video ? <p>{video}</p> : <p>No file chosen</p>}
-        </div>
-
-        <div className={styles.checkboxGroup}>
-          <label className={styles.checkboxLabel}>
-            <input
-              type="checkbox"
-              name="agree1"
-              className={styles.checkboxInput}
-            />
-            <p className={styles.agreement}>
-              I don’t want my video to be used for scientific purposes.
-            </p>
-          </label>
-          <label className={styles.checkboxLabel}>
-            <input
-              type="checkbox"
-              name="agree2"
-              className={styles.checkboxInput}
-            />
-            <p>I Agree To </p>
-            <p
-              className={styles.privacy}
-              onClick={() => navigate('/privacy_policy')}
-            >
-              Privacy Policy
-            </p>
-          </label>
-        </div>
-        <div>
-          {errorMessage && (
-            <div className={styles.errorMessage}>{errorMessage}*</div>
-          )}
-        </div>
-
-        <div className={styles.items}>
-          <button
-            className={styles.btn}
-            type="submit"
-            disabled={isSubmitting || attempts === 0}
-          >
-            {isSubmitting ? 'Submitting...' : 'Submit'}
-          </button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   );
 }

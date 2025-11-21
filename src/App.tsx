@@ -9,11 +9,11 @@ import FooterCom from './components/FooterCom/FooterCom';
 import FrequentlyQuestions from './pages/FrequentlyQuestions/FrequentlyQuestions';
 import HowTo from './pages/HowTo/HowTo';
 import { Fragment } from 'react';
+import OnConstruction from './pages/OnConstruction/OnConstruction';
 
-// Вынесем футер в отдельный компонент, чтобы можно было использовать useLocation
 function LayoutWithFooter() {
   const location = useLocation();
-  const hideFooter = location.pathname === '/'; // футер скрыт только на home
+  const hideFooter = location.pathname === '/';
 
   return (
     <Fragment>
@@ -25,6 +25,7 @@ function LayoutWithFooter() {
         <Route path="/results" element={<Results />} />
         <Route path="/faq" element={<FrequentlyQuestions />} />
         <Route path="/how_to" element={<HowTo />} />
+        <Route path="/construction" element={<OnConstruction />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
 
@@ -35,7 +36,7 @@ function LayoutWithFooter() {
 
 function App() {
   return (
-    <div>
+    <div className="layout">
       <BrowserRouter>
         <LayoutWithFooter />
       </BrowserRouter>

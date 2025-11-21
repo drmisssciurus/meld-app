@@ -1,3 +1,15 @@
+.wrapper {
+  /* height: calc(100vh - 300px); */
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  padding: 20px;
+}
+
 .form {
   margin: 0 auto;
   width: 60%;
