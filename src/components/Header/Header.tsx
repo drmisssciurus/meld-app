@@ -98,8 +98,8 @@ function Header({ page, sections }: HeaderProps) {
       : page === 'not_found'
       ? [
           { label: 'Landmarks', action: () => navigate('/landmarks') },
-          // { label: 'Form', action: () => navigate('/form') },
-          // { label: 'See Results', action: () => navigate('/results') },
+          { label: 'Form', action: () => navigate('/form') },
+          { label: 'See Results', action: () => navigate('/results') },
         ]
       : page === 'faq'
       ? [{ label: 'Landmarks', action: () => navigate('/landmarks') }]
@@ -155,11 +155,11 @@ function Header({ page, sections }: HeaderProps) {
             </button>
           )}
           {(page === 'landmarks' || page === 'faq' || page === 'howto') && (
-            // <button className={styles.btn} onClick={handleStart}>
-            <button
-              className={styles.btn}
-              onClick={() => navigate('/construction')}
-            >
+            // <button
+            //   className={styles.btn}
+            //   onClick={() => navigate('/construction')}
+            // >
+            <button className={styles.btn} onClick={handleStart}>
               Run meld
             </button>
           )}
