@@ -10,7 +10,7 @@ import FrequentlyQuestions from './pages/FrequentlyQuestions/FrequentlyQuestions
 import HowTo from './pages/HowTo/HowTo';
 import { Fragment } from 'react';
 import OnConstruction from './pages/OnConstruction/OnConstruction';
-import TermsOfService from './pages/PrivacyPolicy/TermsOfService';
+// import TermsOfService from './pages/PrivacyPolicy/TermsOfService';
 
 function LayoutWithFooter() {
   const location = useLocation();
