@@ -11,6 +11,12 @@
   overflow-x: hidden;
 }
 
+.linksWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .logo {
   width: 100px;
   height: 100px;

@@ -10,6 +10,7 @@ import FrequentlyQuestions from './pages/FrequentlyQuestions/FrequentlyQuestions
 import HowTo from './pages/HowTo/HowTo';
 import { Fragment } from 'react';
 import OnConstruction from './pages/OnConstruction/OnConstruction';
+import TermsOfService from './pages/PrivacyPolicy/TermsOfService';
 
 function LayoutWithFooter() {
   const location = useLocation();
@@ -22,6 +23,7 @@ function LayoutWithFooter() {
         <Route path="/landmarks" element={<Landmarks />} />
         <Route path="/form" element={<Form />} />
         <Route path="/privacy_policy" element={<PrivacyPolicy />} />
+        {/* <Route path="/terms" element={<TermsOfService />} /> */}
         <Route path="/results" element={<Results />} />
         <Route path="/faq" element={<FrequentlyQuestions />} />
         <Route path="/how_to" element={<HowTo />} />

@@ -6,16 +6,27 @@ function Footer() {
   const navigate = useNavigate();
   return (
     <div className={styles.footerWrapper}>
-      <p>
-        ⓒ 2025 powered by
+      <div className={styles.linksWrapper}>
+        <p>
+          ⓒ 2025 powered by
+          <a
+            href="https://www.tech4animals.org/"
+            target="_blank"
+            className={styles.link}
+          >
+            Tech4Animals
+          </a>
+        </p>
         <a
-          href="https://www.tech4animals.org/"
-          target="_blank"
           className={styles.link}
+          onClick={() => {
+            navigate('/privacy_policy');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
         >
-          Tech4Animals
+          Privacy Policy
         </a>
-      </p>
+      </div>
       <img
         className={styles.logo}
         src={logo}

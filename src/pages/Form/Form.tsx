@@ -431,7 +431,10 @@ function Form() {
               <p>I Agree To </p>
               <p
                 className={styles.privacy}
-                onClick={() => navigate('/privacy_policy')}
+                onClick={() => {
+                  navigate('/privacy_policy');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
               >
                 Privacy Policy
               </p>
