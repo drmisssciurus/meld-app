@@ -432,7 +432,7 @@ function Form() {
               <p
                 className={styles.privacy}
                 onClick={() => {
-                  navigate('/privacy_policy');
+                  navigate('/privacy_policy_lm');
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
               >

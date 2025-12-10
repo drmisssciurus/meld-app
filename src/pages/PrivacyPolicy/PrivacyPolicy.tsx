@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/meld-logo.png';
 import styles from './PrivacyPolicy.module.css';
 
@@ -19,7 +19,7 @@ function PrivacyPolicy() {
             height="100px"
             src={logo}
             alt="logo"
-            onClick={() => navigate('/landmarks')}
+            onClick={() => navigate('/')}
           />
         </div>
         <p className={styles.description}>
@@ -34,7 +34,7 @@ function PrivacyPolicy() {
           identifiable individual. By using our Services, you agree to the
           collection, use, disclosure, sharing, and procedures this Privacy
           Policy describes. Beyond the Privacy Policy, your use of our Services
-          is also subject to our Terms of Service.
+          is also subject to our <Link to="/terms">Terms of Service</Link>.
         </p>
         <div className={styles.pointsWrapper}>
           <div className={styles.points}>
@@ -390,11 +390,8 @@ function PrivacyPolicy() {
             <p>
               If you have any questions, comments, or concerns about our
               processing activities, please email us at{' '}
-              <a href="mailto:info@meld.com">info@meld.com</a>.
+              <a href="mailto:info@meld-ai.com">info@meld-ai.com</a>.
             </p>
-            <p>Meld, Inc.</p>
-            <p>66 Franklin St. Ste. 300</p>
-            <p>Oakland, CA 94607</p>
           </div>
           <button
             className={styles.btn}
