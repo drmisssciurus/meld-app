@@ -5,14 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { getCookie, setCookie } from '../../utils/cookies';
 
 type HeaderProps = {
-  page:
-    | 'home'
-    | 'landmarks'
-    | 'form'
-    | 'results'
-    | 'not_found'
-    | 'faq'
-    | 'howto';
+  page: 'home' | 'form' | 'results' | 'not_found' | 'faq' | 'howto';
   sections?: {
     publications?: React.RefObject<HTMLDivElement | null>;
     people?: React.RefObject<HTMLDivElement | null>;
@@ -81,12 +74,7 @@ function Header({ page, sections }: HeaderProps) {
     page === 'home'
       ? [
           { label: 'Home', action: () => navigate('/') },
-          { label: 'Landmarks', action: () => navigate('/landmarks') },
-        ]
-      : page === 'landmarks'
-      ? [
-          { label: 'Main Page', action: () => navigate('/') },
-          { label: 'Landmarks', action: () => navigate('/landmarks') },
+          // { label: 'Landmarks', action: () => navigate('/landmarks') },
           {
             label: 'Publications',
             action: () => scrollToSection('publications'),
@@ -102,10 +90,10 @@ function Header({ page, sections }: HeaderProps) {
           { label: 'See Results', action: () => navigate('/results') },
         ]
       : page === 'faq'
-      ? [{ label: 'Landmarks', action: () => navigate('/landmarks') }]
+      ? [{ label: 'Home', action: () => navigate('/') }]
       : page === 'howto'
       ? [
-          { label: 'Landmarks', action: () => navigate('/landmarks') },
+          { label: 'Home', action: () => navigate('/') },
 
           {
             label: 'Using The Model',
@@ -115,7 +103,7 @@ function Header({ page, sections }: HeaderProps) {
           { label: 'Schema', action: () => scrollToSection('schema') },
         ]
       : [
-          { label: 'Landmarks', action: () => navigate('/landmarks') },
+          { label: 'Home', action: () => navigate('/') },
 
           { label: 'See Results', action: () => navigate('/results') },
           { label: 'How To Meld', action: () => navigate('/how_to') },
@@ -154,7 +142,7 @@ function Header({ page, sections }: HeaderProps) {
               <span></span>
             </button>
           )}
-          {(page === 'landmarks' || page === 'faq' || page === 'howto') && (
+          {(page === 'home' || page === 'faq' || page === 'howto') && (
             // <button
             //   className={styles.btn}
             //   onClick={() => navigate('/construction')}

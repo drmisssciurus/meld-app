@@ -15,7 +15,7 @@ function Landmarks() {
   return (
     <div className="container">
       <Header
-        page="landmarks"
+        page="home"
         sections={{
           publications: publicationsRef,
           people: peopleRef,

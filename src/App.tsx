@@ -1,48 +1,65 @@
-import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
-import Home from './pages/Home/Home';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+
+// import Home from './pages/Home/Home';
 import Landmarks from './pages/Landmarks/Landmarks';
 import Form from './pages/Form/Form';
-import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy';
-import PageNotFound from './pages/PageNotFound/PageNotFound';
 import Results from './pages/Results/Results';
-import FooterCom from './components/FooterCom/FooterCom';
+
+import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy';
+import PrivacyPolicyLandmarks from './pages/PrivacyPolicy/PrivacyPolicyLandmarks';
+import TermsOfService from './pages/PrivacyPolicy/TermsOfService';
+
 import FrequentlyQuestions from './pages/FrequentlyQuestions/FrequentlyQuestions';
 import HowTo from './pages/HowTo/HowTo';
-import { Fragment } from 'react';
-import OnConstruction from './pages/OnConstruction/OnConstruction';
-import TermsOfService from './pages/PrivacyPolicy/TermsOfService';
-import PrivacyPolicyLandmarks from './pages/PrivacyPolicy/PrivacyPolicyLandmarks';
+// import OnConstruction from './pages/OnConstruction/OnConstruction';
+import PageNotFound from './pages/PageNotFound/PageNotFound';
 
-function LayoutWithFooter() {
-  const location = useLocation();
-  const hideFooter = location.pathname === '/';
-
-  return (
-    <Fragment>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/landmarks" element={<Landmarks />} />
-        <Route path="/form" element={<Form />} />
-        <Route path="/privacy_policy" element={<PrivacyPolicy />} />
-        <Route path="/privacy_policy_lm" element={<PrivacyPolicyLandmarks />} />
-        <Route path="/terms" element={<TermsOfService />} />
-        <Route path="/results" element={<Results />} />
-        <Route path="/faq" element={<FrequentlyQuestions />} />
-        <Route path="/how_to" element={<HowTo />} />
-        <Route path="/construction" element={<OnConstruction />} />
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
-
-      {!hideFooter && <FooterCom />}
-    </Fragment>
-  );
-}
+import FooterCom from './components/FooterCom/FooterCom';
+// import Navigation from './components/Navigation/Navigation'; // если у тебя есть общий навигатор - включи тут
 
 function App() {
   return (
     <div className="layout">
       <BrowserRouter>
-        <LayoutWithFooter />
+        {/* <Navigation /> */}
+
+        <Routes>
+          {/* <Route path="/" element={<Home />} /> */}
+
+          {/* Landmarks module */}
+          <Route path="/">
+            <Route index element={<Landmarks />} />
+            <Route path="form" element={<Form />} />
+            <Route path="results" element={<Results />} />
+            <Route
+              path="privacy_policy_lm"
+              element={<PrivacyPolicyLandmarks />}
+            />
+
+            <Route path="faq" element={<FrequentlyQuestions />} />
+            <Route path="how_to" element={<HowTo />} />
+            {/* <Route path="/construction" element={<OnConstruction />} /> */}
+          </Route>
+
+          {/* Global pages */}
+          <Route path="/privacy_policy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsOfService />} />
+          <Route
+            path="/faq"
+            element={<Navigate to="/landmarks/faq" replace />}
+          />
+          <Route
+            path="/how_to"
+            element={<Navigate to="/landmarks/how_to" replace />}
+          />
+          <Route
+            path="/privacy_policy_lm"
+            element={<Navigate to="/landmarks/privacy_policy_lm" replace />}
+          />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+
+        <FooterCom />
       </BrowserRouter>
     </div>
   );
