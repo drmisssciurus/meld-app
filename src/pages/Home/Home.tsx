@@ -21,7 +21,7 @@ function Home() {
       message: 'User wants to join waitlist from homepage',
     };
 
-    console.log('payload', payload);
+    // console.log('payload', payload);
 
     setLoading(true);
 
@@ -41,7 +41,7 @@ function Home() {
       alert('Thank you! You have joined the waitlist.');
       setEmail('');
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       console.error(err);
       alert('Something went wrong. Try again later.');
     } finally {

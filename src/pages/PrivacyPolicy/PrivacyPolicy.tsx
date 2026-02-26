@@ -25,8 +25,10 @@ function PrivacyPolicy() {
         <p className={styles.description}>
           Meld, Inc. (“MELD,” “we,” “our,” and/or “us”) values the privacy of
           individuals who use our applications, website,{' '}
-          <a href="https://meld-ai.com/">https://meld-ai.com/</a>, or any
-          services that link to this Privacy Policy (collectively, our
+          <a href="https://landmarks.meld-ai.com/">
+            https://landmarks.meld-ai.com/
+          </a>
+          , or any services that link to this Privacy Policy (collectively, our
           “Services”). This privacy policy (“Privacy Policy”) explains how we
           collect, use, and share Personal Information from or about Meld users
           or their devices. As used in this Privacy Policy, “Personal

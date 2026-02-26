@@ -31,7 +31,7 @@ function Header({ page, sections }: HeaderProps) {
     const existingSessionId = getCookie('session_id');
 
     if (existingSessionId) {
-      console.log('Session already exists: ', existingSessionId);
+      // console.log('Session already exists: ', existingSessionId);
       navigate('/form');
       return;
     }
@@ -46,7 +46,7 @@ function Header({ page, sections }: HeaderProps) {
 
       if (res.ok && data.session_id) {
         setCookie('session_id', data.session_id, 1);
-        console.log('Session started: ', data);
+        // console.log('Session started: ', data);
         navigate('/form');
       } else {
         console.error('Failed create session: ', data);

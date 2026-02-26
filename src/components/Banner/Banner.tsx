@@ -11,7 +11,7 @@ function Banner() {
     const existingSessionId = getCookie('session_id');
 
     if (existingSessionId) {
-      console.log('Session already exist: ', existingSessionId);
+      // console.log('Session already exist: ', existingSessionId);
       navigate('/form');
       return;
     }
@@ -25,7 +25,7 @@ function Banner() {
 
       if (res.ok && data.session_id) {
         setCookie('session_id', data.session_id, 1);
-        console.log('New session created: ', data.session_id);
+        // console.log('New session created: ', data.session_id);
         navigate('/form');
       } else {
         console.error('Failed to create session: ', data);

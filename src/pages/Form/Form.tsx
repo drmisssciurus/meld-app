@@ -53,12 +53,12 @@ function Form() {
           null;
 
         if (rotation !== null) {
-          console.log(`[rotation] Found: ${rotation} degrees`);
-          console.log(typeof rotation);
+          // console.log(`[rotation] Found: ${rotation} degrees`);
+          // console.log(typeof rotation);
           setVideoRotation(Number(rotation));
-          console.log(typeof rotation);
+          // console.log(typeof rotation);
         } else {
-          console.log('[rotation] No rotation tag found');
+          // console.log('[rotation] No rotation tag found');
           setVideoRotation(0);
         }
       } catch (err) {
@@ -68,7 +68,7 @@ function Form() {
     }
   };
 
-  console.log('videoRotation: ', videoRotation);
+  // console.log('videoRotation: ', videoRotation);
 
   useEffect(() => {
     async function fetchSessionData() {
@@ -112,17 +112,17 @@ function Form() {
     }
 
     const session_id = getCookie('session_id');
-    console.log(session_id);
+    // console.log(session_id);
 
     try {
-      console.log('[1] Getting presigned URL...');
-      console.log(
-        '[debug] presign url:',
-        `${API_BASE_URL}/landmarks/presigned-url?&session_id=${session_id}`
-      );
+      // console.log('[1] Getting presigned URL...');
+      // console.log(
+      //   '[debug] presign url:',
+      //   `${API_BASE_URL}/landmarks/presigned-url?&session_id=${session_id}`
+      // );
 
-      console.log('[debug] session_id:', session_id);
-      console.log(typeof session_id);
+      // console.log('[debug] session_id:', session_id);
+      // console.log(typeof session_id);
       const mimeType = videoFile.type;
 
       const presignRes = await fetch(
@@ -134,7 +134,7 @@ function Form() {
         }
       );
 
-      console.log('presURL: ', presignRes);
+      // console.log('presURL: ', presignRes);
 
       if (!presignRes.ok) {
         throw new Error('Failed to get presigned URL');
@@ -145,7 +145,7 @@ function Form() {
       let s3_key = '';
       s3_key = presignJson.object_key;
 
-      console.log('[2] Uploading video to S3...');
+      // console.log('[2] Uploading video to S3...');
 
       const uploadRes = await fetch(presignedUrl, {
         method: 'PUT',
@@ -156,17 +156,17 @@ function Form() {
         },
       });
 
-      console.log('URL:', presignedUrl);
-      console.log('Key:', s3_key);
-      console.log('File:', videoFile.name);
+      // console.log('URL:', presignedUrl);
+      // console.log('Key:', s3_key);
+      // console.log('File:', videoFile.name);
 
-      console.log('uploadRes: ', uploadRes);
+      // console.log('uploadRes: ', uploadRes);
 
       if (!uploadRes.ok) {
         throw new Error('Video upload failed');
       }
 
-      console.log('[3] Submitting metadata to landmarks API...');
+      // console.log('[3] Submitting metadata to landmarks API...');
 
       const landmarksForm = new FormData();
       landmarksForm.append('video', videoFile);
@@ -186,11 +186,11 @@ function Form() {
       });
 
       const result = await finalRes.json();
-      console.log('[4] Final landmarks response:', result);
+      // console.log('[4] Final landmarks response:', result);
 
       if (!finalRes.ok) throw new Error(result.error || 'landmarks failed');
 
-      console.log('landmarks successful!');
+      // console.log('landmarks successful!');
 
       // e.currentTarget.reset();
       // setVideo('');
